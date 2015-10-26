@@ -26,7 +26,7 @@ class SonataPropelAdminBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-//        $container->addCompilerPass(new AddGuesserCompilerPass());
-//        $container->addCompilerPass(new AddTemplatesCompilerPass());
+        $container->addCompilerPass(new AddGuesserCompilerPass());
+        $container->addCompilerPass(new AddTemplatesCompilerPass());
     }
 }
