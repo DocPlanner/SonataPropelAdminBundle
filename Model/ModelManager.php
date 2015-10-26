@@ -288,11 +288,11 @@ class ModelManager implements ModelManagerInterface
     public function getIdentifierFieldNames($class)
     {
         $fieldNames = array();
-
-        $peer = constant($class.'::PEER');
+        $table = $class.'TableMap';
 
         /* @var $tableMap TableMap */
-        $tableMap = call_user_func(array($peer, 'getTableMap'));
+        $tableMap = $table::getTableMap();
+
         foreach ($tableMap->getPrimaryKeys() as $eachColumn) {
             $fieldNames[] = $eachColumn->getPhpName();
         }
@@ -609,9 +609,9 @@ class ModelManager implements ModelManagerInterface
             return $this->cache[$class.'::'.$property] = $table->getColumn($property);
         }
 
-        if ($table && $table->hasColumnByInsensitiveCase($property)) {
-            return $this->cache[$class.'::'.$property] = $table->getColumnByInsensitiveCase($property);
-        }
+//        if ($table && $table->hasColumnByInsensitiveCase($property)) {
+//            return $this->cache[$class.'::'.$property] = $table->getColumnByInsensitiveCase($property);
+//        }
     }
 
     /**
