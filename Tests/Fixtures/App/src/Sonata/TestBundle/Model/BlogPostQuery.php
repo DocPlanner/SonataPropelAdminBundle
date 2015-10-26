@@ -2,7 +2,7 @@
 
 namespace Sonata\TestBundle\Model;
 
-use Sonata\TestBundle\Model\om\BaseBlogPostQuery;
+use Sonata\TestBundle\Model\Base\BlogPostQuery;
 
 class BlogPostQuery extends BaseBlogPostQuery
 {

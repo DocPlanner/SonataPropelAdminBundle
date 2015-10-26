@@ -13,7 +13,7 @@ namespace Sonata\PropelAdminBundle\Guesser;
 
 use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
 use Sonata\AdminBundle\Model\ModelManagerInterface;
-use Symfony\Bridge\Propel1\Form\PropelTypeGuesser;
+use Propel\PropelBundle\Form\TypeGuesser;
 use Symfony\Component\Form\Guess\TypeGuess;
 
 /**
@@ -26,7 +26,7 @@ abstract class AbstractTypeGuesser implements TypeGuesserInterface
      */
     public function guessType($class, $property, ModelManagerInterface $modelManager)
     {
-        $guesser = new PropelTypeGuesser();
+        $guesser = new TypeGuesser();
         $guessedType = $guesser->guessType($class, $property);
 
         if ($guessedType->getType() === 'checkbox') {

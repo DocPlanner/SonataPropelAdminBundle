@@ -22,7 +22,7 @@ propel:
         propel.database: sqlite
         propel.php.dir: "%kernel.root_dir%/../src/Sonata/TestBundle/Model"
 
-    path:       "%kernel.root_dir%/../../../../vendor/propel/propel1"
+    path:       "%kernel.root_dir%/../../../../vendor/propel/propel"
     phing_path: "%kernel.root_dir%/../../../../vendor/phing"
     logging:    %kernel.debug%
     dbal:
