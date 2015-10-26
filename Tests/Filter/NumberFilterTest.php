@@ -10,7 +10,7 @@
  */
 namespace Sonata\PropelAdminBundle\Tests\Filter;
 
-use ModelCriteria;
+use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Sonata\AdminBundle\Form\Type\Filter\NumberType;
 
 /**

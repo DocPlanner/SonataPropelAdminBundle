@@ -11,6 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Datagrid;
 
+use Propel\Runtime\ActiveQuery\Criteria;
 use Sonata\PropelAdminBundle\Datagrid\ProxyQuery;
 use Sonata\PropelAdminBundle\Tests\Functionnal\WebTestCase;
 
@@ -30,7 +31,7 @@ class ProxyQueryTest extends WebTestCase
             ->method('filterByIsPublished')
             ->with(
                 $this->equalTo(true),
-                $this->equalTo(\Criteria::EQUAL)
+                $this->equalTo(Criteria::EQUAL)
             );
 
         $proxy = new ProxyQuery($query);
@@ -47,7 +48,7 @@ class ProxyQueryTest extends WebTestCase
             ->method('filterByTitle')
             ->with(
                 $this->equalTo('dummy title'),
-                $this->equalTo(\Criteria::EQUAL)
+                $this->equalTo(Criteria::EQUAL)
             );
 
         $proxy = new ProxyQuery($query);
@@ -64,7 +65,7 @@ class ProxyQueryTest extends WebTestCase
             ->with(
                 $this->equalTo('Slug'),
                 $this->equalTo('slug'),
-                $this->equalTo(\Criteria::EQUAL)
+                $this->equalTo(Criteria::EQUAL)
             );
 
         $proxy = new ProxyQuery($query);

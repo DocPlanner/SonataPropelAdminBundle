@@ -11,8 +11,9 @@
 
 namespace Sonata\PropelAdminBundle\Datagrid;
 
-use ModelCriteria;
-use PropelObjectCollection;
+use Propel\Runtime\ActiveQuery\Criteria;
+use Propel\Runtime\ActiveQuery\ModelCriteria;
+use Propel\Runtime\Collection\ObjectCollection;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 
 /**
@@ -33,7 +34,7 @@ class ProxyQuery implements ProxyQueryInterface
     protected $query;
 
     /**
-     * @var PropelObjectCollection
+     * @var ObjectCollection
      */
     protected $result;
 
@@ -42,7 +43,7 @@ class ProxyQuery implements ProxyQueryInterface
     /**
      * Constructor.
      *
-     * @param \ModelCriteria $query
+     * @param ModelCriteria $query
      */
     public function __construct(ModelCriteria $query)
     {
@@ -55,7 +56,7 @@ class ProxyQuery implements ProxyQueryInterface
      * @param array       $params
      * @param string|null $hydrationMode
      *
-     * @return PropelObjectCollection
+     * @return ObjectCollection
      */
     public function execute(array $params = array(), $hydrationMode = null)
     {
@@ -80,7 +81,7 @@ class ProxyQuery implements ProxyQueryInterface
      *
      * @return ProxyQuery
      */
-    public function filterBy($column, $value, $comparison = \Criteria::EQUAL)
+    public function filterBy($column, $value, $comparison = Criteria::EQUAL)
     {
         $method = 'filterBy';
         $args = array($column, $value, $comparison);
@@ -193,7 +194,7 @@ class ProxyQuery implements ProxyQueryInterface
     }
 
     /**
-     * @return \ModelCriteria
+     * @return ModelCriteria
      */
     public function getQuery()
     {

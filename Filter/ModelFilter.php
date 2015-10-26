@@ -11,8 +11,8 @@
 
 namespace Sonata\PropelAdminBundle\Filter;
 
-use Criteria;
-use PropelObjectCollection;
+use Propel\Runtime\ActiveQuery\Criteria;
+use Propel\Runtime\Collection\ObjectCollection;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 
@@ -33,7 +33,7 @@ class ModelFilter extends AbstractFilter
     {
         $map = $this->getCriteriaMap();
 
-        if ($value['value'] instanceof PropelObjectCollection) {
+        if ($value['value'] instanceof ObjectCollection) {
             $comparison = $value['type'] === ChoiceType::TYPE_NOT_CONTAINS ? $map[$value['type']] : Criteria::IN;
             $query->filterBy($field, $value['value'], $comparison);
         } else {

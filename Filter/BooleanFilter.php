@@ -11,7 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Filter;
 
-use ModelCriteria;
+use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\CoreBundle\Form\Type\BooleanType;
 

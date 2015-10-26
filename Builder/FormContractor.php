@@ -11,6 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Builder;
 
+use Propel\Runtime\Map\RelationMap;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Builder\FormContractorInterface;
@@ -48,7 +49,7 @@ class FormContractor implements FormContractorInterface
         $fieldDescription->setAdmin($admin);
         $fieldDescription->setOption('edit', $fieldDescription->getOption('edit', 'standard'));
 
-        if (in_array($fieldDescription->getMappingType(), array(\RelationMap::MANY_TO_MANY, \RelationMap::MANY_TO_ONE, \RelationMap::ONE_TO_MANY, \RelationMap::ONE_TO_ONE))) {
+        if (in_array($fieldDescription->getMappingType(), array(RelationMap::MANY_TO_MANY, RelationMap::MANY_TO_ONE, RelationMap::ONE_TO_MANY, RelationMap::ONE_TO_ONE))) {
             $admin->attachAdminClass($fieldDescription);
         }
     }

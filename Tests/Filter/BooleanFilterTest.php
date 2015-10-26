@@ -11,7 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Filter;
 
-use ModelCriteria;
+use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Sonata\CoreBundle\Form\Type\BooleanType;
 
 /**

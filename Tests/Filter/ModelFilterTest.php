@@ -11,8 +11,8 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Filter;
 
-use Criteria;
-use PropelObjectCollection;
+use Propel\Runtime\ActiveQuery\Criteria;
+use Propel\Runtime\Collection\ObjectCollection;
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 
 /**
@@ -32,7 +32,7 @@ class ModelFilterTest extends AbstractFilterTest
         $user = new User();
         $user->id = 42;
 
-        $collection = new PropelObjectCollection();
+        $collection = new ObjectCollection();
         $collection->append($user);
 
         $data = array('value' => $user);
@@ -61,5 +61,10 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    public function hashCode()
+    {
+
     }
 }

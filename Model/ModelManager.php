@@ -11,9 +11,13 @@
 
 namespace Sonata\PropelAdminBundle\Model;
 
-use BaseObject;
 use Exporter\Source\PropelCollectionSourceIterator;
-use Persistent;
+use Propel\Runtime\ActiveQuery\Criteria;
+use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
+use Propel\Runtime\Collection\ObjectCollection;
+use Propel\Runtime\Map\ColumnMap;
+use Propel\Runtime\Map\RelationMap;
+use Propel\Runtime\Map\TableMap;
 use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
@@ -63,21 +67,21 @@ class ModelManager implements ModelManagerInterface
         }
 
         foreach ($table->getRelations() as $relation) {
-            if ($relation->getType() === \RelationMap::MANY_TO_ONE) {
+            if ($relation->getType() === RelationMap::MANY_TO_ONE) {
                 if (strtolower($name) === strtolower($relation->getName())) {
                     $fieldDescription->setAssociationMapping(array(
                         'targetEntity'  => $relation->getForeignTable()->getClassName(),
                         'type'          => $relation->getType(),
                     ));
                 }
-            } elseif ($relation->getType() === \RelationMap::ONE_TO_MANY) {
+            } elseif ($relation->getType() === RelationMap::ONE_TO_MANY) {
                 if (strtolower($name) === strtolower($relation->getPluralName())) {
                     $fieldDescription->setAssociationMapping(array(
                         'targetEntity'  => $relation->getForeignTable()->getClassName(),
                         'type'          => $relation->getType(),
                     ));
                 }
-            } elseif ($relation->getType() === \RelationMap::MANY_TO_MANY) {
+            } elseif ($relation->getType() === RelationMap::MANY_TO_MANY) {
                 if (strtolower($name) === strtolower($relation->getPluralName())) {
                     $fieldDescription->setAssociationMapping(array(
                         'targetEntity'  => $relation->getLocalTable()->getClassName(),
@@ -119,7 +123,7 @@ class ModelManager implements ModelManagerInterface
     }
 
     /**
-     * @param BaseObject $object
+     * @param ActiveRecordInterface $object
      */
     public function create($object)
     {
@@ -127,7 +131,7 @@ class ModelManager implements ModelManagerInterface
     }
 
     /**
-     * @param BaseObject $object
+     * @param ActiveRecordInterface $object
      */
     public function update($object)
     {
@@ -135,7 +139,7 @@ class ModelManager implements ModelManagerInterface
     }
 
     /**
-     * @param BaseObject $object
+     * @param ActiveRecordInterface $object
      */
     public function delete($object)
     {
@@ -172,7 +176,7 @@ class ModelManager implements ModelManagerInterface
      * @param string $class
      * @param int    $id
      *
-     * @return BaseObject
+     * @return ActiveRecordInterface
      */
     public function find($class, $id)
     {
@@ -247,7 +251,7 @@ class ModelManager implements ModelManagerInterface
     }
 
     /**
-     * @param BaseObject|Persistent $model
+     * @param ActiveRecordInterface|Persistent $model
      *
      * @return array|null
      */
@@ -259,7 +263,7 @@ class ModelManager implements ModelManagerInterface
             // if an array is returned (composite PK), nothing is done.
             // otherwise we return an array with only one element: the identifier
             $value = $model->getPrimaryKey();
-        } elseif ($model instanceof BaseObject && method_exists($model, 'getPrimaryKey')) {
+        } elseif ($model instanceof ActiveRecordInterface && method_exists($model, 'getPrimaryKey')) {
             // readonly="true" models
             $value = $model->getPrimaryKey();
         }
@@ -287,7 +291,7 @@ class ModelManager implements ModelManagerInterface
 
         $peer = constant($class.'::PEER');
 
-        /* @var $tableMap \TableMap */
+        /* @var $tableMap TableMap */
         $tableMap = call_user_func(array($peer, 'getTableMap'));
         foreach ($tableMap->getPrimaryKeys() as $eachColumn) {
             $fieldNames[] = $eachColumn->getPhpName();
@@ -297,13 +301,13 @@ class ModelManager implements ModelManagerInterface
     }
 
     /**
-     * @param BaseObject|null $model
+     * @param ActiveRecordInterface|null $model
      *
      * @return array|null
      */
     public function getNormalizedIdentifier($model)
     {
-        if ($model instanceof BaseObject || $model instanceof Persistent) {
+        if ($model instanceof ActiveRecordInterface || $model instanceof Persistent) {
             $values = $this->getIdentifierValues($model);
 
             if (empty($values)) {
@@ -319,7 +323,7 @@ class ModelManager implements ModelManagerInterface
     /**
      * @param string $class
      *
-     * @return BaseObject
+     * @return ActiveRecordInterface
      */
     public function getModelInstance($class)
     {
@@ -329,11 +333,11 @@ class ModelManager implements ModelManagerInterface
     /**
      * @param string $class
      *
-     * @return \PropelObjectCollection
+     * @return ObjectCollection
      */
     public function getModelCollectionInstance($class)
     {
-        $collection = new \PropelObjectCollection();
+        $collection = new ObjectCollection();
         $collection->setModel($class);
 
         return $collection;
@@ -523,7 +527,7 @@ class ModelManager implements ModelManagerInterface
     public function addIdentifiersToQuery($class, ProxyQueryInterface $query, array $idx)
     {
         if (null !== $column = $this->getModelIdentifier($class)) {
-            $query->filterBy($column, $idx, \Criteria::IN);
+            $query->filterBy($column, $idx, Criteria::IN);
         }
     }
 
@@ -572,7 +576,7 @@ class ModelManager implements ModelManagerInterface
     /**
      * @param string $class
      *
-     * @return \TableMap
+     * @return TableMap
      */
     protected function getTable($class)
     {
@@ -591,7 +595,7 @@ class ModelManager implements ModelManagerInterface
      * @param string $class
      * @param string $property
      *
-     * @return \ColumnMap
+     * @return ColumnMap
      */
     protected function getColumn($class, $property)
     {

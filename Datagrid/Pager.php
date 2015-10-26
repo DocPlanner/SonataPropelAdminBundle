@@ -11,6 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Datagrid;
 
+use Propel\Runtime\Collection\ObjectCollection;
 use Sonata\AdminBundle\Datagrid\Pager as BasePager;
 
 /**
@@ -26,7 +27,7 @@ class Pager extends BasePager
     /**
      * Returns an array of results on the given page.
      *
-     * @return \PropelObjectCollection
+     * @return ObjectCollection
      */
     public function getResults()
     {
