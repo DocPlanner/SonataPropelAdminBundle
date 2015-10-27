@@ -26,6 +26,7 @@
             <directory>./</directory>
             <exclude>
                 <directory>./Tests/</directory>
+                <directory>./Tests/Functional/</directory>
                 <directory>./Resources/</directory>
                 <directory>./DependencyInjection/</directory>
                 <directory>./vendor/</directory>

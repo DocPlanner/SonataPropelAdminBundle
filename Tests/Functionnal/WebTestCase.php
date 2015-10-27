@@ -25,7 +25,7 @@ class WebTestCase extends BaseWebTestCase
 
     public static function setUpBeforeClass()
     {
-        self::runCommand('propel:build');
+        self::runCommand('propel:build', true);
         self::runCommand('propel:sql:insert --force');
         self::runCommand('propel:fixtures:load');
     }
@@ -33,6 +33,7 @@ class WebTestCase extends BaseWebTestCase
     protected static function runCommand($command, $hideOutput = true)
     {
         $application = self::getApplication();
+//        $schemaDir = ' --schema-dir='.$application->getParameters('propel.configuration.paths.schemaDir');
 
         return $application->run(new StringInput($command), $hideOutput ? new NullOutput() : null);
     }

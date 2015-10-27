@@ -19,11 +19,13 @@ framework:
 propel:
     database:
         connections:
-            sqlite:
+            default:
                 adapter: sqlite
                 dsn: sqlite:host=sonata_test.db
                 user:
                 password:
+                settings:
+                    charset: utf8
 
     paths:
         phpDir:    "%kernel.root_dir%/../src/Sonata/TestBundle/Model"

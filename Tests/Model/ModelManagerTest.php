@@ -192,9 +192,9 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
 //        ), iterator_to_array($collectionIterator));
     }
 
-    /**
-     * @dataProvider getIdentifierValuesDataProvider
-     */
+//    /**
+//     * @dataProvider getIdentifierValuesDataProvider
+//     */
 //    public function testGetIdentifierValues($modelClass, $pkValues, $expectedValues)
 //    {
 //        $model = $this->getMock($modelClass);
@@ -216,19 +216,19 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
 //        $this->assertNull($manager->getIdentifierValues($model));
     }
 
-    public function getIdentifierValuesDataProvider()
-    {
-        $baseObjectMock = '\Sonata\PropelAdminBundle\Tests\Model\BaseObjectMock';
-
-        return array(
-            // modelClass,          pkValues,       expectedValues
-            array('\Persistent',    42,             array(42)),
-            array('\Persistent',    array(24, 42),  array(24, 42)),
-
-            array($baseObjectMock,  42,             array(42)),
-            array($baseObjectMock,  array(24, 42),  array(24, 42)),
-        );
-    }
+//    public function getIdentifierValuesDataProvider()
+//    {
+//        $baseObjectMock = '\Sonata\PropelAdminBundle\Tests\Model\BaseObjectMock';
+//
+//        return array(
+//            // modelClass,          pkValues,       expectedValues
+//            array('\Persistent',    42,             array(42)),
+//            array('\Persistent',    array(24, 42),  array(24, 42)),
+//
+//            array($baseObjectMock,  42,             array(42)),
+//            array($baseObjectMock,  array(24, 42),  array(24, 42)),
+//        );
+//    }
 
     /**
      * @dataProvider getNormalizedIdentifierDataProvider
@@ -273,8 +273,8 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
 //        $manager->getNewFieldDescriptionInstance('\Dummy\Classname', $fieldName);
 //    }
 
-    public function invalidFieldNameProvider()
-    {
+//    public function invalidFieldNameProvider()
+//    {
 //        $object = new \stdClass();
 //        $object->hashCode = function() {};
 //
@@ -284,7 +284,7 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
 //            array(array()),
 //            array($object),
 //        );
-    }
+//    }
 
     /**
      * @dataProvider validFieldNameProvider
@@ -307,18 +307,18 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
 //        $this->assertEquals($expected['field_mapping'], $fieldDescription->getFieldMapping());
 //    }
 
-    /**
-     * @dataProvider translatableFieldNamesProvider
-     */
+//    /**
+//     * @dataProvider translatableFieldNamesProvider
+//     */
 //    public function testTranslateFieldNameWithValidData($modelManager, $className, $fieldName, $expectedPhpName)
 //    {
 //        $phpName = $modelManager->translateFieldName($className, $fieldName);
 //
 //        $this->assertSame($expectedPhpName, $phpName);
 //    }
-
-    public function translatableFieldNamesProvider()
-    {
+//
+//    public function translatableFieldNamesProvider()
+//    {
 //        $dbMap = new DatabaseMap('default');
 //
 //        $authorTableMap = new TableMap();
@@ -354,7 +354,7 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
 //            array($manager, 'Acme\\DemoBundle\\Model\\Book', 'author', 'AuthorId'),
 //            array($manager, 'Acme\\DemoBundle\\Model\\Book', 'Author', 'AuthorId'),
 //        );
-    }
+//    }
 
     public function validFieldNameProvider()
     {

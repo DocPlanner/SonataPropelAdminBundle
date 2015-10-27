@@ -251,7 +251,7 @@ class ModelManager implements ModelManagerInterface
     }
 
     /**
-     * @param ActiveRecordInterface|Persistent $model
+     * @param ActiveRecordInterface $model
      *
      * @return array|null
      */
@@ -259,12 +259,7 @@ class ModelManager implements ModelManagerInterface
     {
         $value = null;
 
-        if ($model instanceof Persistent) {
-            // if an array is returned (composite PK), nothing is done.
-            // otherwise we return an array with only one element: the identifier
-            $value = $model->getPrimaryKey();
-        } elseif ($model instanceof ActiveRecordInterface && method_exists($model, 'getPrimaryKey')) {
-            // readonly="true" models
+        if ($model instanceof ActiveRecordInterface) {
             $value = $model->getPrimaryKey();
         }
 
@@ -307,7 +302,7 @@ class ModelManager implements ModelManagerInterface
      */
     public function getNormalizedIdentifier($model)
     {
-        if ($model instanceof ActiveRecordInterface || $model instanceof Persistent) {
+        if ($model instanceof ActiveRecordInterface) {
             $values = $this->getIdentifierValues($model);
 
             if (empty($values)) {
