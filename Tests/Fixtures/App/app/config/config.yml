@@ -2,7 +2,6 @@ imports:
     - { resource: security.yml }
     - { resource: admin.yml }
 
-
 framework:
     secret:          Hell yeah!
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -18,16 +17,17 @@ framework:
 
 # propel configuration
 propel:
-    build_properties:
-        propel.database: sqlite
-        propel.php.dir: "%kernel.root_dir%/../src/Sonata/TestBundle/Model"
+    database:
+        connections:
+            sqlite:
+                adapter: sqlite
+                dsn: sqlite:host=sonata_test.db
+                user:
+                password:
 
-    path:       "%kernel.root_dir%/../../../../vendor/propel/propel"
-    phing_path: "%kernel.root_dir%/../../../../vendor/phing"
-    logging:    %kernel.debug%
-    dbal:
-        driver:     sqlite
-        dsn:        sqlite:host=sonata_test.db
+    paths:
+        phpDir:    "%kernel.root_dir%/../src/Sonata/TestBundle/Model"
+        schemaDir: "%kernel.root_dir%/../src/Sonata/TestBundle/Resources/config/schema.xml"
 
 sonata_block:
     default_contexts: [cms]
