@@ -72,6 +72,7 @@ class ModelManager implements ModelManagerInterface
                     $fieldDescription->setAssociationMapping(array(
                         'targetEntity'  => $relation->getForeignTable()->getClassName(),
                         'type'          => $relation->getType(),
+                        'fieldName'     => $relation->getName(),
                     ));
                 }
             } elseif ($relation->getType() === RelationMap::ONE_TO_MANY) {
@@ -79,6 +80,7 @@ class ModelManager implements ModelManagerInterface
                     $fieldDescription->setAssociationMapping(array(
                         'targetEntity'  => $relation->getForeignTable()->getClassName(),
                         'type'          => $relation->getType(),
+                        'fieldName'     => $relation->getName(),
                     ));
                 }
             } elseif ($relation->getType() === RelationMap::MANY_TO_MANY) {
@@ -86,6 +88,7 @@ class ModelManager implements ModelManagerInterface
                     $fieldDescription->setAssociationMapping(array(
                         'targetEntity'  => $relation->getLocalTable()->getClassName(),
                         'type'          => $relation->getType(),
+                        'fieldName'     => $relation->getName(),
                     ));
                 }
             }
@@ -604,9 +607,9 @@ class ModelManager implements ModelManagerInterface
             return $this->cache[$class.'::'.$property] = $table->getColumn($property);
         }
 
-//        if ($table && $table->hasColumnByInsensitiveCase($property)) {
-//            return $this->cache[$class.'::'.$property] = $table->getColumnByInsensitiveCase($property);
-//        }
+        //        if ($table && $table->hasColumnByInsensitiveCase($property)) {
+        //            return $this->cache[$class.'::'.$property] = $table->getColumnByInsensitiveCase($property);
+        //        }
     }
 
     /**
