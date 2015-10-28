@@ -70,7 +70,7 @@ class ModelManager implements ModelManagerInterface
             if ($relation->getType() === RelationMap::MANY_TO_ONE) {
                 if (strtolower($name) === strtolower($relation->getName())) {
                     $fieldDescription->setAssociationMapping(array(
-                        'targetEntity'  => $relation->getForeignTable()->getClassName(),
+                        'targetEntity'  => substr($relation->getForeignTable()->getClassName(), 1),
                         'type'          => $relation->getType(),
                         'fieldName'     => $relation->getName(),
                     ));
@@ -78,7 +78,7 @@ class ModelManager implements ModelManagerInterface
             } elseif ($relation->getType() === RelationMap::ONE_TO_MANY) {
                 if (strtolower($name) === strtolower($relation->getPluralName())) {
                     $fieldDescription->setAssociationMapping(array(
-                        'targetEntity'  => $relation->getForeignTable()->getClassName(),
+                        'targetEntity'  => substr($relation->getForeignTable()->getClassName(), 1),
                         'type'          => $relation->getType(),
                         'fieldName'     => $relation->getName(),
                     ));
@@ -86,7 +86,7 @@ class ModelManager implements ModelManagerInterface
             } elseif ($relation->getType() === RelationMap::MANY_TO_MANY) {
                 if (strtolower($name) === strtolower($relation->getPluralName())) {
                     $fieldDescription->setAssociationMapping(array(
-                        'targetEntity'  => $relation->getLocalTable()->getClassName(),
+                        'targetEntity'  => substr($relation->getForeignTable()->getClassName(), 1),
                         'type'          => $relation->getType(),
                         'fieldName'     => $relation->getName(),
                     ));
