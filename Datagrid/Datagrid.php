@@ -18,4 +18,11 @@ use Sonata\AdminBundle\Datagrid\Datagrid as BaseDatagrid;
  */
 class Datagrid extends BaseDatagrid
 {
+	/**
+	 * @param ProxyQuery $query
+	 */
+	public function setQuery(ProxyQuery $query)
+	{
+		$this->query = $query;
+	}
 }
