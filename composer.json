@@ -20,6 +20,7 @@
         "symfony/framework-bundle": "^3.0 || ^4.0 || ^5.0"
     },
     "require-dev": {
+        "phpunit/phpunit": "^9",
         "knplabs/knp-menu-bundle": ">=1.1.0,<3.0.0",
         "skyfox/propel-bundle": "^5.0.2@dev",
         "symfony/browser-kit": "^3.0 || ^4.0 || ^5.0",
