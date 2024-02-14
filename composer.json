@@ -27,8 +27,7 @@
         "symfony/console": "^3.0 || ^4.0 || ^5.0",
         "symfony/security-bundle": "^3.0 || ^4.0 || ^5.0",
         "symfony/twig-bundle": "^3.0 || ^4.0 || ^5.0",
-        "symfony/phpunit-bridge": "^3.0 || ^4.0 || ^5.0",
-        "fabpot/php-cs-fixer": "~0.1|~1.0"
+        "symfony/phpunit-bridge": "^3.0 || ^4.0 || ^5.0"
     },
     "provide": {
         "sonata-project/admin-bundle-persistency-layer": "1.0.0"
