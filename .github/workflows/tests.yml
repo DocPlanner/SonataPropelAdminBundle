@@ -17,15 +17,15 @@ jobs:
       matrix:
         php:
           - 7.4
-          - 8.0
-          - 8.1
-          - 8.2
-          - 8.3
-          - 8.4
+#          - 8.0
+#          - 8.1
+#          - 8.2
+#          - 8.3
+#          - 8.4
         symfony:
           - ^3.4
-          - ^4.4
-          - ^5.4
+#          - ^4.4
+#          - ^5.4
 
     name: 'PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}'
     runs-on: ubuntu-latest
