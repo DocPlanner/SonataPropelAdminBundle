@@ -11,12 +11,13 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Admin;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\PropelAdminBundle\Admin\FieldDescription;
 
 /**
  * FieldDescription tests.
  */
-class FieldDescriptionTest extends \PHPUnit_Framework_TestCase
+class FieldDescriptionTest extends TestCase
 {
     public function testAssociationMapping()
     {

@@ -11,6 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Builder;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\PropelAdminBundle\Builder\DatagridBuilder;
 
 /**
@@ -18,7 +19,7 @@ use Sonata\PropelAdminBundle\Builder\DatagridBuilder;
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-class DatagridBuilderTest extends \PHPUnit_Framework_TestCase
+class DatagridBuilderTest extends TestCase
 {
     public function testTextFieldsAreMadeSearchable()
     {

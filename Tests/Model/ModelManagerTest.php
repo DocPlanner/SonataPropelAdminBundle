@@ -11,6 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use Propel\Runtime\Collection\Collection;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Map\ColumnMap;
@@ -25,7 +26,7 @@ use Sonata\PropelAdminBundle\Model\ModelManager;
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-class ModelManagerTest extends \PHPUnit_Framework_TestCase
+class ModelManagerTest extends TestCase
 {
     public function testCollectionCreate()
     {

@@ -23,7 +23,7 @@ class WebTestCase extends BaseWebTestCase
 {
     protected static $application;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::runCommand('propel:build', true);
         self::runCommand('propel:sql:insert --force');

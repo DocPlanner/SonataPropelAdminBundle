@@ -11,12 +11,14 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Base class for filter tests.
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-abstract class AbstractFilterTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractFilterTest extends TestCase
 {
     const FIELD_NAME = 'some_field';
 
@@ -25,7 +27,7 @@ abstract class AbstractFilterTest extends \PHPUnit_Framework_TestCase
     abstract protected function getFilterClass();
     abstract public function validDataProvider();
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->filter = $this->getFilter(self::FIELD_NAME);
     }

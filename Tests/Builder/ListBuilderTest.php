@@ -11,6 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Builder;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\PropelAdminBundle\Admin\FieldDescription;
 use Sonata\PropelAdminBundle\Builder\ListBuilder;
 use Symfony\Component\Form\Guess\Guess;
@@ -21,14 +22,14 @@ use Symfony\Component\Form\Guess\TypeGuess;
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-class ListBuilderTest extends \PHPUnit_Framework_TestCase
+class ListBuilderTest extends TestCase
 {
     protected $admin;
     protected $typeGuesser;
     protected $list;
     protected $modelManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         // configure the admin
         $this->admin = $this->getMock('Sonata\AdminBundle\Admin\AdminInterface');

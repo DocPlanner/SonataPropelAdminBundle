@@ -11,6 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Filter;
 
+use PHPUnit\Framework\TestCase;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Sonata\AdminBundle\Form\Type\Filter\DateRangeType;
 
@@ -19,7 +20,7 @@ use Sonata\AdminBundle\Form\Type\Filter\DateRangeType;
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-abstract class AbstractDateRangeFilterTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractDateRangeFilterTest extends TestCase
 {
     const FIELD_NAME = 'created_at';
 
@@ -27,7 +28,7 @@ abstract class AbstractDateRangeFilterTest extends \PHPUnit_Framework_TestCase
 
     abstract protected function getFilterClass();
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->filter = $this->getFilter(self::FIELD_NAME);
     }

@@ -12,6 +12,7 @@
         }
     ],
     "require": {
+        "php": "^7.4 || ^8.0",
         "propel/propel": "^2.0.0-beta1",
         "sonata-project/admin-bundle": "~2.4|~3.0",
         "sonata-project/block-bundle": "~2.2|~3.0",

@@ -11,6 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Datagrid;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\PropelAdminBundle\Datagrid\Pager;
 
 /**
@@ -18,7 +19,7 @@ use Sonata\PropelAdminBundle\Datagrid\Pager;
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-class PagerTest extends \PHPUnit_Framework_TestCase
+class PagerTest extends TestCase
 {
     public function testGetResults()
     {
