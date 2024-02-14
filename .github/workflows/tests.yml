@@ -13,7 +13,7 @@ concurrency:
 jobs:
   tests:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         php:
           - 7.4
