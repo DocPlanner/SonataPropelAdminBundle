@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: true
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+          - 8.1
+          - 8.2
+          - 8.3
+          - 8.4
+        symfony:
+          - ^3.4
+          - ^4.4
+          - ^5.4
+
+    name: 'PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ matrix.php }}'
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Lock packages according to dependency matrix
+        run: |
+          composer require --ansi --no-scripts --update-with-all-dependencies --no-install \
+            'symfony/form: ${{ matrix.symfony }}' \
+            'symfony/framework-bundle: ${{ matrix.symfony }}'
+          
+          composer require --ansi --no-scripts --update-with-all-dependencies --no-install --dev \
+            'symfony/browser-kit: ${{ matrix.symfony }}' \
+            'symfony/console: ${{ matrix.symfony }}' \
+            'symfony/security-bundle: ${{ matrix.symfony }}' \
+            'symfony/twig-bundle: ${{ matrix.symfony }}' \
+            'symfony/phpunit-bridge: ${{ matrix.symfony }}'
+          
+          rm composer.lock
+
+      - name: Install dependencies
+        run: composer install --ansi --prefer-dist --no-interaction --no-scripts
+
+#      - name: PHPUnit
+#        run: vendor/bin/phpunit
