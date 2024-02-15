@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Sonata\PropelAdminBundle\Tests\Functionnal;
+namespace Sonata\PropelAdminBundle\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
@@ -30,7 +30,7 @@ class WebTestCase extends BaseWebTestCase
         self::runCommand('propel:fixtures:load');
     }
 
-    protected static function runCommand($command, $hideOutput = true)
+    protected static function runCommand($command, $hideOutput = true): int
     {
         $application = self::getApplication();
 //        $schemaDir = ' --schema-dir='.$application->getParameters('propel.configuration.paths.schemaDir');
@@ -38,7 +38,7 @@ class WebTestCase extends BaseWebTestCase
         return $application->run(new StringInput($command), $hideOutput ? new NullOutput() : null);
     }
 
-    protected static function getApplication()
+    protected static function getApplication(): Application
     {
         if (null === self::$application) {
             $kernel = self::createKernel();

@@ -20,9 +20,9 @@ use Sonata\PropelAdminBundle\Filter\DateFilter;
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-abstract class AbstractDateFilterTest extends AbstractFilterTest
+abstract class AbstractDateFilterTestCase extends AbstractFilterTestCase
 {
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
         $date = new \DateTime();
         $data = array('value' => $date);

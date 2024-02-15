@@ -1,11 +1,17 @@
 /build
 /Resources/doc/_build
 /vendor
+.idea/
+composer.phar
 composer.lock
 phpunit.xml
 .php_cs.cache
-
+.phpunit.result.cache
+Tests/Fixtures/App/app/cache
+!Tests/Fixtures/App/app/cache/.gitignore
+Tests/Fixtures/App/app/logs
+!Tests/Fixtures/App/app/logs/.gitignore
 # propel-generated stuff
 Tests/Fixtures/App/app/propel/sql/
-Tests/Fixtures/App/src/Sonata/TestBundle/Model/map
-Tests/Fixtures/App/src/Sonata/TestBundle/Model/om
+Tests/Fixtures/App/src/Sonata/TestBundle/Model/Base
+Tests/Fixtures/App/src/Sonata/TestBundle/Model/Map

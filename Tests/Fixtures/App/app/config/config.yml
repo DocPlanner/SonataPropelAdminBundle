@@ -21,15 +21,17 @@ propel:
         connections:
             default:
                 adapter: sqlite
-                dsn: sqlite:host=sonata_test.db
+                dsn: 'sqlite:%kernel.cache_dir%/propel/sqlite.db'
                 user:
                 password:
                 settings:
                     charset: utf8
 
     paths:
-        phpDir:    "%kernel.root_dir%/../src/Sonata/TestBundle/Model"
-        schemaDir: "%kernel.root_dir%/../src/Sonata/TestBundle/Resources/config/schema.xml"
+#        phpDir:    "%kernel.root_dir%/../src/Sonata/TestBundle/Model"
+        sqlDir: '%kernel.cache_dir%/propel/sql/'
+        schemaDir: '%kernel.root_dir%/../src/Sonata/TestBundle/Resources/config/'
+        loaderScriptDir: '%kernel.cache_dir%/propel/generated-conf/'
 
 sonata_block:
     default_contexts: [cms]

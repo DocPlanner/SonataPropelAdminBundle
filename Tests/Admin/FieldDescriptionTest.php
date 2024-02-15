@@ -19,7 +19,7 @@ use Sonata\PropelAdminBundle\Admin\FieldDescription;
  */
 class FieldDescriptionTest extends TestCase
 {
-    public function testAssociationMapping()
+    public function testAssociationMapping(): void
     {
         $field = new FieldDescription();
         $field->setAssociationMapping(array(
@@ -44,7 +44,7 @@ class FieldDescriptionTest extends TestCase
         $this->assertEquals('integer', $field->getType());
     }
 
-    public function testSetParentAssociationMappings()
+    public function testSetParentAssociationMappings(): void
     {
         $field = new FieldDescription();
         $field->setParentAssociationMappings(array(array('test')));
@@ -52,35 +52,32 @@ class FieldDescriptionTest extends TestCase
         $this->assertEquals(array(array('test')), $field->getParentAssociationMappings());
     }
 
-    /**
-     * @expectedException        \RuntimeException
-     * @expectedExceptionMessage An association mapping must be an array
-     */
-    public function testSetParentAssociationMappingsAllowOnlyForArray()
+    public function testSetParentAssociationMappingsAllowOnlyForArray(): void
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('An association mapping must be an array');
+
         $field = new FieldDescription();
         $field->setParentAssociationMappings(array('test'));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testSetAssociationMappingAllowOnlyForArray()
+    public function testSetAssociationMappingAllowOnlyForArray(): void
     {
+        $this->expectException(\RuntimeException::class);
+
         $field = new FieldDescription();
         $field->setAssociationMapping('test');
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testSetFieldMappingAllowOnlyForArray()
+    public function testSetFieldMappingAllowOnlyForArray(): void
     {
+        $this->expectException(\RuntimeException::class);
+
         $field = new FieldDescription();
         $field->setFieldMapping('test');
     }
 
-    public function testSetFieldMappingSetType()
+    public function testSetFieldMappingSetType(): void
     {
         $fieldMapping = array(
             'type'         => 'integer',
@@ -92,7 +89,7 @@ class FieldDescriptionTest extends TestCase
         $this->assertEquals('integer', $field->getType());
     }
 
-    public function testSetFieldMappingSetMappingType()
+    public function testSetFieldMappingSetMappingType(): void
     {
         $fieldMapping = array(
             'type'         => 'integer',
@@ -104,9 +101,9 @@ class FieldDescriptionTest extends TestCase
         $this->assertEquals('integer', $field->getMappingType());
     }
 
-    public function testGetTargetEntity()
+    public function testGetTargetEntity(): void
     {
-        $assocationMapping = array(
+        $associationMapping = array(
             'type'         => 'integer',
             'targetEntity' => 'someValue',
         );
@@ -115,40 +112,39 @@ class FieldDescriptionTest extends TestCase
 
         $this->assertNull($field->getTargetEntity());
 
-        $field->setAssociationMapping($assocationMapping);
+        $field->setAssociationMapping($associationMapping);
 
         $this->assertEquals('someValue', $field->getTargetEntity());
     }
 
-    public function testGetValue()
+    public function testGetValue(): void
     {
-        $mockedObject = $this->getMock('MockedTestObject', array('myMethod'));
+        $mockedObject = $this->getMockBuilder('stdClass')->addMethods(array('myMethod'))->getMock();
         $mockedObject->expects($this->once())
             ->method('myMethod')
-            ->will($this->returnValue('myMethodValue'));
+            ->willReturn('myMethodValue');
 
         $field = new FieldDescription();
         $field->setOption('code', 'myMethod');
 
-        $this->assertEquals($field->getValue($mockedObject), 'myMethodValue');
+        $this->assertEquals('myMethodValue', $field->getValue($mockedObject));
     }
 
-    /**
-     * @expectedException Sonata\AdminBundle\Exception\NoValueException
-     */
-    public function testGetValueWhenCannotRetrieve()
+    public function testGetValueWhenCannotRetrieve(): void
     {
-        $mockedObject = $this->getMock('MockedTestObject', array('myMethod'));
+        $this->expectException(\Sonata\AdminBundle\Exception\NoValueException::class);
+
+        $mockedObject = $this->getMockBuilder('stdClass')->addMethods(array('myMethod'))->getMock();
         $mockedObject->expects($this->never())
             ->method('myMethod')
-            ->will($this->returnValue('myMethodValue'));
+            ->willReturn('myMethodValue');
 
         $field = new FieldDescription();
 
-        $this->assertEquals($field->getValue($mockedObject), 'myMethodValue');
+        $this->assertEquals('myMethodValue', $field->getValue($mockedObject));
     }
 
-    public function testIsIdentifierFromFieldMapping()
+    public function testIsIdentifierFromFieldMapping(): void
     {
         $fieldMapping = array(
             'type'      => 'integer',

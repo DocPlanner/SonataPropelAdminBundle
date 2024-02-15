@@ -15,6 +15,10 @@ use PHPUnit\Framework\TestCase;
 use Sonata\PropelAdminBundle\Admin\FieldDescription;
 use Sonata\PropelAdminBundle\Builder\ShowBuilder;
 use Symfony\Component\Form\Guess\TypeGuess;
+use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
+use Sonata\AdminBundle\Admin\FieldDescriptionCollection;
+use Sonata\AdminBundle\Model\ModelManagerInterface;
 
 /**
  * ShowBuilder tests.
@@ -30,30 +34,29 @@ class ShowBuilderTest extends TestCase
     public function setUp(): void
     {
         // configure the admin
-        $this->admin = $this->getMock('Sonata\AdminBundle\Admin\AdminInterface');
+        $this->admin = $this->createMock(AdminInterface::class);
 
         // configure the typeGuesser
-        $this->typeGuesser = $this->getMock('Sonata\AdminBundle\Guesser\TypeGuesserInterface');
+        $this->typeGuesser = $this->createMock(TypeGuesserInterface::class);
 
         // configure the fields list
-        $this->list = $this->getMock('Sonata\AdminBundle\Admin\FieldDescriptionCollection');
+        $this->list = $this->createMock(FieldDescriptionCollection::class);
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
-    public function testCantAddFieldWithoutType()
+    public function testCantAddFieldWithoutType(): void
     {
-        $modelManager = $this->getMock('Sonata\AdminBundle\Model\ModelManagerInterface');
+        $this->expectException(\RuntimeException::class);
+
+        $modelManager = $this->createMock(ModelManagerInterface::class);
         $this->admin
             ->expects($this->once())
             ->method('getModelManager')
-            ->will($this->returnValue($modelManager));
+            ->willReturn($modelManager);
 
         $this->typeGuesser
             ->expects($this->once())
             ->method('guessType')
-            ->will($this->returnValue(new TypeGuess(null, array(), TypeGuess::HIGH_CONFIDENCE)));
+            ->willReturn(new TypeGuess(null, [], TypeGuess::HIGH_CONFIDENCE));
 
         $builder = new ShowBuilder($this->typeGuesser);
         $field = new FieldDescription();
@@ -65,7 +68,7 @@ class ShowBuilderTest extends TestCase
      * @group           templates
      * @dataProvider    addFieldFixesTemplateProvider
      */
-    public function testAddFieldFixesTemplate($templatesMap, $field, $type, $expectedTemplate)
+    public function testAddFieldFixesTemplate($templatesMap, $field, $type, $expectedTemplate): void
     {
         $builder = new ShowBuilder($this->typeGuesser, $templatesMap);
         $builder->addField($this->list, $type, $field, $this->admin);
@@ -73,7 +76,7 @@ class ShowBuilderTest extends TestCase
         $this->assertSame($expectedTemplate, $field->getTemplate());
     }
 
-    public function addFieldFixesTemplateProvider()
+    public function addFieldFixesTemplateProvider(): array
     {
         $templatesMap = array(
             'text'      => 'textTemplate.html.twig',
@@ -95,7 +98,7 @@ class ShowBuilderTest extends TestCase
     /**
      * @dataProvider optionsProvider
      */
-    public function testAddFieldFixesFieldDescription($field, $givenOptions, $expectedOptions)
+    public function testAddFieldFixesFieldDescription($field, $givenOptions, $expectedOptions): void
     {
         $field->setOptions($givenOptions);
 
@@ -107,7 +110,7 @@ class ShowBuilderTest extends TestCase
         }
     }
 
-    public function optionsProvider()
+    public function optionsProvider(): array
     {
         $field = new FieldDescription();
         $field->setName('my_field');

@@ -13,6 +13,7 @@ namespace Sonata\PropelAdminBundle\Tests\Datagrid;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\PropelAdminBundle\Datagrid\Pager;
+use Sonata\PropelAdminBundle\Datagrid\ProxyQuery;
 
 /**
  * Pager tests.
@@ -21,14 +22,14 @@ use Sonata\PropelAdminBundle\Datagrid\Pager;
  */
 class PagerTest extends TestCase
 {
-    public function testGetResults()
+    public function testGetResults(): void
     {
-        $query = $this->getMockBuilder('\Sonata\PropelAdminBundle\Datagrid\ProxyQuery', array('execute'))
+        $query = $this->getMockBuilder(ProxyQuery::class, array('execute'))
             ->disableOriginalConstructor()
             ->getMock();
         $query->expects($this->once())
             ->method('execute')
-            ->will($this->returnValue(42));
+            ->willReturn(42);
 
         $pager = new Pager();
         $pager->setQuery($query);
@@ -39,17 +40,17 @@ class PagerTest extends TestCase
     /**
      * @dataProvider invalidParametersProvider
      */
-    public function testInitWithInvalidParameters($page, $maxPerPage, $nbResults)
+    public function testInitWithInvalidParameters($page, $maxPerPage, $nbResults): void
     {
         // configure the query
         $query = $this->getProxyMock();
 
         // configure the pager
-        $pager = $this->getMock('\Sonata\PropelAdminBundle\Datagrid\Pager', array('computeNbResults'));
+        $pager = $this->getMockBuilder(Pager::class)->onlyMethods(array('computeNbResults'))->getMock();
 
         $pager->expects($this->once())
             ->method('computeNbResults')
-            ->will($this->returnValue($nbResults));
+            ->willReturn($nbResults);
 
         $pager->setQuery($query);
         $pager->setPage($page);
@@ -63,7 +64,7 @@ class PagerTest extends TestCase
     /**
      * @dataProvider validParametersProvider
      */
-    public function testInitWithValidParameters($page, $lastPage, $maxPerPage, $nbResults, $firstResult)
+    public function testInitWithValidParameters($page, $lastPage, $maxPerPage, $nbResults, $firstResult): void
     {
         // configure the query
         $query = $this->getProxyMock();
@@ -77,11 +78,11 @@ class PagerTest extends TestCase
             ->with($this->equalTo($maxPerPage));
 
         // configure the pager
-        $pager = $this->getMock('\Sonata\PropelAdminBundle\Datagrid\Pager', array('computeNbResults'));
+        $pager = $this->getMockBuilder(Pager::class)->onlyMethods(array('computeNbResults'))->getMock();
 
         $pager->expects($this->once())
             ->method('computeNbResults')
-            ->will($this->returnValue($nbResults));
+            ->willReturn($nbResults);
 
         $pager->setQuery($query);
         $pager->setPage($page);
@@ -92,7 +93,7 @@ class PagerTest extends TestCase
         $this->assertSame($lastPage, $pager->getLastPage());
     }
 
-    public function invalidParametersProvider()
+    public function invalidParametersProvider(): array
     {
         return array(
             // page, maxPerPage, nbResults
@@ -102,7 +103,7 @@ class PagerTest extends TestCase
         );
     }
 
-    public function validParametersProvider()
+    public function validParametersProvider(): array
     {
         return array(
             //    page, lastPage, maxPerPage, nbResults, firstResult
@@ -116,7 +117,7 @@ class PagerTest extends TestCase
     protected function getProxyMock()
     {
         // configure the query
-        $query = $this->getMockBuilder('\Sonata\PropelAdminBundle\Datagrid\ProxyQuery')
+        $query = $this->getMockBuilder(ProxyQuery::class)
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -11,16 +11,18 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Filter;
 
+use Sonata\PropelAdminBundle\Filter\DateTimeFilter;
+
 /**
  * DateTimeFilter tests.
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-class DateTimeFilterTest extends AbstractDateFilterTest
+class DateTimeFilterTest extends AbstractDateFilterTestCase
 {
-    protected function getFilterClass()
+    protected function getFilterClass(): string
     {
-        return '\Sonata\PropelAdminBundle\Filter\DateTimeFilter';
+        return DateTimeFilter::class;
     }
 
     public function testRenderSettingsHasRightName()

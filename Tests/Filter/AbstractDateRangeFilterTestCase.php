@@ -14,13 +14,15 @@ namespace Sonata\PropelAdminBundle\Tests\Filter;
 use PHPUnit\Framework\TestCase;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Sonata\AdminBundle\Form\Type\Filter\DateRangeType;
+use Sonata\PropelAdminBundle\Datagrid\ProxyQuery;
+use Sonata\PropelAdminBundle\Model\ModelManager;
 
 /**
  * DateRangeFilter base tests.
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-abstract class AbstractDateRangeFilterTest extends TestCase
+abstract class AbstractDateRangeFilterTestCase extends TestCase
 {
     const FIELD_NAME = 'created_at';
 
@@ -33,19 +35,18 @@ abstract class AbstractDateRangeFilterTest extends TestCase
         $this->filter = $this->getFilter(self::FIELD_NAME);
     }
 
-    /**
-     * @expectedException           RuntimeException
-     * @expectedExceptionMessage    The given query is not supported by this filter.
-     */
-    public function testApplyWithInvalidQuery()
+    public function testApplyWithInvalidQuery(): void
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('The given query is not supported by this filter.');
+
         $this->filter->apply('not a query', new \DateTime());
     }
 
     /**
      * @dataProvider invalidDataProvider
      */
-    public function testApplyWithInvalidDataDoesNothing($value, $filterValid)
+    public function testApplyWithInvalidDataDoesNothing($value, $filterValid): void
     {
         $query = $this->getQueryMock();
         $query->expects($this->never())
@@ -63,14 +64,14 @@ abstract class AbstractDateRangeFilterTest extends TestCase
     /**
      * @dataProvider betweenDataProvider
      */
-    public function testApplyBetweenWithValidData($data, $comparisonType, $startNormalizedData, $endNormalizedData, $startComparisonOperator, $endComparisonOperator, $filterOptions)
+    public function testApplyBetweenWithValidData($data, $comparisonType, $startNormalizedData, $endNormalizedData, $startComparisonOperator, $endComparisonOperator, $filterOptions): void
     {
         $data = array_merge($data, array('type' => $comparisonType));
         $query = $this->getQueryMock();
 
         $query->expects($this->at(0))
                ->method('getModelName')
-               ->will($this->returnValue('not null'));
+               ->willReturn('not null');
 
         $query->expects($this->at(1))
                ->method('filterBy')
@@ -99,14 +100,14 @@ abstract class AbstractDateRangeFilterTest extends TestCase
     /**
      * @dataProvider notBetweenDataProvider
      */
-    public function testApplyNotBetweenWithValidData($data, $comparisonType, $startNormalizedData, $endNormalizedData, $startComparisonOperator, $endComparisonOperator, $filterOptions)
+    public function testApplyNotBetweenWithValidData($data, $comparisonType, $startNormalizedData, $endNormalizedData, $startComparisonOperator, $endComparisonOperator, $filterOptions): void
     {
         $data = array_merge($data, array('type' => $comparisonType));
         $query = $this->getQueryMock();
 
         $query->expects($this->at(0))
                ->method('getModelName')
-               ->will($this->returnValue('not null'));
+               ->willReturn('not null');
 
         $query->expects($this->at(1))
                ->method('filterBy')
@@ -115,11 +116,11 @@ abstract class AbstractDateRangeFilterTest extends TestCase
                    $this->equalTo($startNormalizedData),
                    $this->equalTo($startComparisonOperator)
                )
-               ->will($this->returnSelf());
+                ->willReturnSelf();
 
         $query->expects($this->at(2))
                ->method('_or')
-               ->will($this->returnSelf());
+               ->willReturnSelf();
 
         $query->expects($this->at(3))
                ->method('filterBy')
@@ -128,7 +129,7 @@ abstract class AbstractDateRangeFilterTest extends TestCase
                    $this->equalTo($endNormalizedData),
                    $this->equalTo($endComparisonOperator)
                )
-               ->will($this->returnSelf());
+                ->willReturnSelf();
 
         foreach ($filterOptions as $name => $value) {
             $this->filter->setOption($name, $value);
@@ -138,7 +139,7 @@ abstract class AbstractDateRangeFilterTest extends TestCase
         $this->assertTrue($this->filter->isActive());
     }
 
-    public function invalidDataProvider()
+    public function invalidDataProvider(): array
     {
         return array(
             // data, filterValid
@@ -154,7 +155,7 @@ abstract class AbstractDateRangeFilterTest extends TestCase
         );
     }
 
-    public function betweenDataProvider()
+    public function betweenDataProvider(): array
     {
         $start = new \DateTime();
         $end = clone $start;
@@ -171,7 +172,7 @@ abstract class AbstractDateRangeFilterTest extends TestCase
         );
     }
 
-    public function notBetweenDataProvider()
+    public function notBetweenDataProvider(): array
     {
         $start = new \DateTime();
         $end = clone $start;
@@ -188,7 +189,7 @@ abstract class AbstractDateRangeFilterTest extends TestCase
 
     protected function getQueryMock()
     {
-        $query = $this->getMockBuilder('\Sonata\PropelAdminBundle\Datagrid\ProxyQuery')
+        $query = $this->getMockBuilder(ProxyQuery::class)
             ->disableOriginalConstructor()
             ->setMethods(array('filterBy', '_or', 'getModelName'))
             ->getMock();
@@ -206,7 +207,7 @@ abstract class AbstractDateRangeFilterTest extends TestCase
         $modelManager->expects($this->any())
                ->method('translateFieldName')
                ->with($this->anything(), $this->equalTo($fieldName))
-               ->will($this->returnValue($fieldName));
+               ->willReturn($fieldName);
 
         $filter->initialize('filter', array(
             'field_name' => $fieldName,
@@ -217,7 +218,7 @@ abstract class AbstractDateRangeFilterTest extends TestCase
 
     protected function getModelManagerMock()
     {
-        $manager = $this->getMockBuilder('\Sonata\PropelAdminBundle\Model\ModelManager')
+        $manager = $this->getMockBuilder(ModelManager::class)
             ->setMethods(array('translateFieldName'))
             ->getMock();
 

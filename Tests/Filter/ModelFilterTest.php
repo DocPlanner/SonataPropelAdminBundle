@@ -14,20 +14,21 @@ namespace Sonata\PropelAdminBundle\Tests\Filter;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\Collection\ObjectCollection;
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
+use Sonata\PropelAdminBundle\Filter\ModelFilter;
 
 /**
  * ModelFilter tests.
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-class ModelFilterTest extends AbstractFilterTest
+class ModelFilterTest extends AbstractFilterTestCase
 {
-    protected function getFilterClass()
+    protected function getFilterClass(): string
     {
-        return '\Sonata\PropelAdminBundle\Filter\ModelFilter';
+        return ModelFilter::class;
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
         $user = new User();
         $user->id = 42;

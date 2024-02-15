@@ -13,7 +13,7 @@ namespace Sonata\PropelAdminBundle\Tests\Datagrid;
 
 use Propel\Runtime\ActiveQuery\Criteria;
 use Sonata\PropelAdminBundle\Datagrid\ProxyQuery;
-use Sonata\PropelAdminBundle\Tests\Functionnal\WebTestCase;
+use Sonata\PropelAdminBundle\Tests\Functional\WebTestCase;
 
 /**
  * ProxyQuery tests.
@@ -22,8 +22,10 @@ use Sonata\PropelAdminBundle\Tests\Functionnal\WebTestCase;
  */
 class ProxyQueryTest extends WebTestCase
 {
-    public function testWithVirtualColumns()
+    public function testWithVirtualColumns(): void
     {
+        $this->markTestIncomplete('This test has not been implemented yet.');
+
 //        $query = $this->getMockBuilder('\Sonata\TestBundle\Model\BlogPostQuery', array('filterByTitle'))
 //            ->disableOriginalConstructor()
 //            ->getMock();

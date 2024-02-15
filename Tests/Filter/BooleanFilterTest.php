@@ -13,22 +13,23 @@ namespace Sonata\PropelAdminBundle\Tests\Filter;
 
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Sonata\CoreBundle\Form\Type\BooleanType;
+use Sonata\PropelAdminBundle\Filter\BooleanFilter;
 
 /**
  * BooleanFilter tests.
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-class BooleanFilterTest extends AbstractFilterTest
+class BooleanFilterTest extends AbstractFilterTestCase
 {
     const FIELD_NAME = 'published';
 
-    protected function getFilterClass()
+    protected function getFilterClass(): string
     {
-        return '\Sonata\PropelAdminBundle\Filter\BooleanFilter';
+        return BooleanFilter::class;
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
         $yes = array('value' => BooleanType::TYPE_YES);
         $no = array('value' => BooleanType::TYPE_NO);

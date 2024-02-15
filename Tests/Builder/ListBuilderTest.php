@@ -16,6 +16,10 @@ use Sonata\PropelAdminBundle\Admin\FieldDescription;
 use Sonata\PropelAdminBundle\Builder\ListBuilder;
 use Symfony\Component\Form\Guess\Guess;
 use Symfony\Component\Form\Guess\TypeGuess;
+use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
+use Sonata\AdminBundle\Admin\FieldDescriptionCollection;
+use Sonata\PropelAdminBundle\Model\ModelManager;
 
 /**
  * ListBuilder tests.
@@ -32,23 +36,23 @@ class ListBuilderTest extends TestCase
     public function setUp(): void
     {
         // configure the admin
-        $this->admin = $this->getMock('Sonata\AdminBundle\Admin\AdminInterface');
+        $this->admin = $this->createMock(AdminInterface::class);
 
         // configure the typeGuesser
-        $this->typeGuesser = $this->getMock('Sonata\AdminBundle\Guesser\TypeGuesserInterface');
+        $this->typeGuesser = $this->createMock(TypeGuesserInterface::class);
 
         // configure the fields list
-        $this->list = $this->getMock('Sonata\AdminBundle\Admin\FieldDescriptionCollection');
+        $this->list = $this->createMock(FieldDescriptionCollection::class);
 
         // configure the model manager
-        $this->modelManager = $this->getMock('Sonata\PropelAdminBundle\Model\ModelManager');
+        $this->modelManager = $this->createMock(ModelManager::class);
     }
 
     /**
      * @group           templates
      * @dataProvider    addFieldFixesTemplateProvider
      */
-    public function testAddFieldFixesTemplate($templatesMap, $field, $type, $expectedTemplate)
+    public function testAddFieldFixesTemplate($templatesMap, $field, $type, $expectedTemplate): void
     {
         $builder = new ListBuilder($this->typeGuesser, $templatesMap);
         $builder->addField($this->list, $type, $field, $this->admin);
@@ -56,7 +60,7 @@ class ListBuilderTest extends TestCase
         $this->assertSame($expectedTemplate, $field->getTemplate());
     }
 
-    public function addFieldFixesTemplateProvider()
+    public function addFieldFixesTemplateProvider(): array
     {
         $templatesMap = array(
             'text'      => 'textTemplate.html.twig',
@@ -78,7 +82,7 @@ class ListBuilderTest extends TestCase
     /**
      * @dataProvider optionsProvider
      */
-    public function testAddFieldFixesFieldDescription($field, $givenOptions, $expectedOptions)
+    public function testAddFieldFixesFieldDescription($field, $givenOptions, $expectedOptions): void
     {
         $field->setOptions($givenOptions);
 
@@ -90,7 +94,7 @@ class ListBuilderTest extends TestCase
         }
     }
 
-    public function optionsProvider()
+    public function optionsProvider(): array
     {
         $field = new FieldDescription();
         $field->setName('my_field');
@@ -152,7 +156,7 @@ class ListBuilderTest extends TestCase
         );
     }
 
-    public function testActionLinksWithDefaultConfig()
+    public function testActionLinksWithDefaultConfig(): void
     {
         $field = new FieldDescription();
         $field->setName('_action');
@@ -173,7 +177,7 @@ class ListBuilderTest extends TestCase
         ), $field->getOption('actions'));
     }
 
-    public function testAddListActionField()
+    public function testAddListActionField(): void
     {
         $builder = new ListBuilder($this->typeGuesser);
         $fieldDescription = new FieldDescription();
@@ -188,7 +192,7 @@ class ListBuilderTest extends TestCase
         );
     }
 
-    public function testCorrectFixedActionsFieldType()
+    public function testCorrectFixedActionsFieldType(): void
     {
         $this->typeGuesser->expects($this->once())->method('guessType')
             ->willReturn(new TypeGuess(null, array(), Guess::LOW_CONFIDENCE));

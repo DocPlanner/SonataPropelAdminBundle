@@ -20,6 +20,8 @@ use Propel\Runtime\Map\RelationMap;
 use Propel\Runtime\Map\TableMap;
 use Sonata\PropelAdminBundle\Admin\FieldDescription;
 use Sonata\PropelAdminBundle\Model\ModelManager;
+use Sonata\PropelAdminBundle\Datagrid\Datagrid;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 
 /**
  * ModelManager tests.
@@ -28,22 +30,22 @@ use Sonata\PropelAdminBundle\Model\ModelManager;
  */
 class ModelManagerTest extends TestCase
 {
-    public function testCollectionCreate()
+    public function testCollectionCreate(): void
     {
         $manager = new ModelManager();
-        $collection = $manager->getModelCollectionInstance('\DateTime');
+        $collection = $manager->getModelCollectionInstance(\DateTime::class);
 
-        $this->assertInstanceOf('\Propel\Runtime\Collection\ObjectCollection', $collection);
+        $this->assertInstanceOf(ObjectCollection::class, $collection);
         $this->assertSame('DateTime', $collection->getModel());
     }
 
-    public function testCollectionClearWhenAlreadyEmpty()
+    public function testCollectionClearWhenAlreadyEmpty(): void
     {
         $collection = new ObjectCollection();
         $this->assertTrue($collection->isEmpty());
     }
 
-    public function testCollectionClear()
+    public function testCollectionClear(): void
     {
         $manager = new ModelManager();
         $object = new TestModel();
@@ -95,7 +97,7 @@ class ModelManagerTest extends TestCase
         $this->assertFalse($manager->collectionHasElement($collection, $otherObject));
     }
 
-    public function testCollectionRemove()
+    public function testCollectionRemove(): void
     {
         $manager = new ModelManager();
 
@@ -115,7 +117,7 @@ class ModelManagerTest extends TestCase
         $this->assertTrue($collection->isEmpty());
     }
 
-    public function testCollectionRemoveDoesNothingWhenObjectIsNotFound()
+    public function testCollectionRemoveDoesNothingWhenObjectIsNotFound(): void
     {
         $manager = new ModelManager();
 
@@ -141,8 +143,10 @@ class ModelManagerTest extends TestCase
         ), $collection->getArrayCopy());
     }
 
-    public function testGetDataSourceIterator()
+    public function testGetDataSourceIterator(): void
     {
+        $this->markTestIncomplete('This test has not been implemented yet.');
+
         $fields = array('title' => '[title]');
         $firstResult = 10;
         $maxResults = 25;
@@ -154,7 +158,7 @@ class ModelManagerTest extends TestCase
         $results->setData($data);
 
         // configure the query mock
-        $query = $this->getMock('Sonata\AdminBundle\Datagrid\ProxyQueryInterface');
+        $query = $this->createMock(ProxyQueryInterface::class);
 
 //        $query->expects($this->once())
 //            ->method('setFirstResult')
@@ -169,7 +173,7 @@ class ModelManagerTest extends TestCase
 //            ->will($this->returnValue($results));
 //
 //        // configure the datagrid mock
-        $datagrid = $this->getMockBuilder('Sonata\PropelAdminBundle\Datagrid\Datagrid')
+        $datagrid = $this->getMockBuilder(Datagrid::class)
             ->disableOriginalConstructor()
             ->setMethods(array('buildPager', 'getQuery'))
             ->getMock();
@@ -207,8 +211,10 @@ class ModelManagerTest extends TestCase
 //        $this->assertSame($expectedValues, $manager->getIdentifierValues($model));
 //    }
 
-    public function testGetIdentifierValuesWithInvalidModel()
+    public function testGetIdentifierValuesWithInvalidModel(): void
     {
+        $this->markTestIncomplete('This test has not been implemented yet.');
+
 //        $model = $this->getMock('\SplStack');
 //        $model->expects($this->never())
 //            ->method('getPrimaryKey');
@@ -245,7 +251,7 @@ class ModelManagerTest extends TestCase
 //        $this->assertSame($expectedValues, $manager->getNormalizedIdentifier($model));
 //    }
 
-    public function getNormalizedIdentifierDataProvider()
+    public function getNormalizedIdentifierDataProvider(): void
     {
 //        $baseObjectMock = '\Sonata\PropelAdminBundle\Tests\Model\BaseObjectMock';
 //
@@ -357,7 +363,7 @@ class ModelManagerTest extends TestCase
 //        );
 //    }
 
-    public function validFieldNameProvider()
+    public function validFieldNameProvider(): void
     {
 //        $className = '\Foo\Book';
 //        $options = array(
@@ -412,8 +418,10 @@ class ModelManagerTest extends TestCase
 //        );
     }
 
-    public function testGetDefaultSortValues()
+    public function testGetDefaultSortValues(): void
     {
+        $this->markTestIncomplete('This test has not been implemented yet.');
+
 //        $manager = new TestableModelManager();
 //        $manager->modelIdentifier = 'Id';
 //
@@ -439,7 +447,7 @@ class ModelManagerTest extends TestCase
 //        $this->assertSame(array('filter' => $expectedSortParameters), $manager->getSortParameters($field, $datagrid));
 //    }
 
-    public function testGetSortParametersProvider()
+    public function testGetSortParametersProvider(): void
     {
 //        $field = new FieldDescription();
 //        $field->setName('slug');
@@ -462,8 +470,10 @@ class ModelManagerTest extends TestCase
 //        );
     }
 
-    public function testGetPaginationParameters()
+    public function testGetPaginationParameters(): void
     {
+        $this->markTestIncomplete('This test has not been implemented yet.');
+
 //        $field = new FieldDescription();
 //        $field->setName('slug');
 //
@@ -483,8 +493,10 @@ class ModelManagerTest extends TestCase
 //        ), $manager->getPaginationParameters($datagrid, 42));
     }
 
-    public function testExecuteQueryWithProxyQuery()
+    public function testExecuteQueryWithProxyQuery(): void
     {
+        $this->markTestIncomplete('This test has not been implemented yet.');
+
 //        $proxyQuery = $this->getMock('Sonata\AdminBundle\Datagrid\ProxyQueryInterface');
 //        $proxyQuery
 //            ->expects($this->once())
@@ -495,8 +507,10 @@ class ModelManagerTest extends TestCase
 //        $this->assertEquals('result', $manager->executeQuery($proxyQuery));
     }
 
-    public function testExecuteQueryWithModelCriteria()
+    public function testExecuteQueryWithModelCriteria(): void
     {
+        $this->markTestIncomplete('This test has not been implemented yet.');
+
 //        $query = $this->getMockBuilder('ModelCriteria')->disableOriginalConstructor()->getMock();
 //        $query
 //            ->expects($this->once())

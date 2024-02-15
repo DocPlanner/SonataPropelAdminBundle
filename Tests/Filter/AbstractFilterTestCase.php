@@ -12,39 +12,40 @@
 namespace Sonata\PropelAdminBundle\Tests\Filter;
 
 use PHPUnit\Framework\TestCase;
+use Sonata\PropelAdminBundle\Datagrid\ProxyQuery;
+use Sonata\PropelAdminBundle\Model\ModelManager;
 
 /**
  * Base class for filter tests.
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-abstract class AbstractFilterTest extends TestCase
+abstract class AbstractFilterTestCase extends TestCase
 {
     const FIELD_NAME = 'some_field';
 
     protected $filter;
 
-    abstract protected function getFilterClass();
-    abstract public function validDataProvider();
+    abstract protected function getFilterClass(): string;
+    abstract public function validDataProvider(): array;
 
     public function setUp(): void
     {
         $this->filter = $this->getFilter(self::FIELD_NAME);
     }
 
-    /**
-     * @expectedException           RuntimeException
-     * @expectedExceptionMessage    The given query is not supported by this filter.
-     */
-    public function testApplyWithInvalidQuery()
+    public function testApplyWithInvalidQuery(): void
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('The given query is not supported by this filter.');
+
         $this->filter->apply('not a query', 'foo');
     }
 
     /**
      * @dataProvider invalidDataProvider
      */
-    public function testApplyWithInvalidDataDoesNothing($value)
+    public function testApplyWithInvalidDataDoesNothing($value): void
     {
         $query = $this->getQueryMock();
 
@@ -55,7 +56,7 @@ abstract class AbstractFilterTest extends TestCase
     /**
      * @dataProvider validDataProvider
      */
-    public function testApplyWithValidData($data, $comparisonType, $normalizedData, $comparisonOperator, $filterOptions)
+    public function testApplyWithValidData($data, $comparisonType, $normalizedData, $comparisonOperator, $filterOptions): void
     {
         $data = array_merge($data, array('type' => $comparisonType));
 
@@ -76,7 +77,7 @@ abstract class AbstractFilterTest extends TestCase
         $this->assertTrue($this->filter->isActive());
     }
 
-    public function invalidDataProvider()
+    public function invalidDataProvider(): array
     {
         return array(
             array(null),
@@ -88,7 +89,7 @@ abstract class AbstractFilterTest extends TestCase
 
     protected function getQueryMock()
     {
-        $query = $this->getMockBuilder('\Sonata\PropelAdminBundle\Datagrid\ProxyQuery')
+        $query = $this->getMockBuilder(ProxyQuery::class)
             ->disableOriginalConstructor()
             ->setMethods(array('filterBy', 'getModelName'))
             ->getMock();
@@ -96,14 +97,14 @@ abstract class AbstractFilterTest extends TestCase
         $query
             ->expects($this->any())
             ->method('getModelName')
-            ->will($this->returnValue('\Foo\Model\Bar'));
+            ->willReturn('\Foo\Model\Bar');
 
         return $query;
     }
 
     protected function getModelManagerMock()
     {
-        $manager = $this->getMockBuilder('\Sonata\PropelAdminBundle\Model\ModelManager')
+        $manager = $this->getMockBuilder(ModelManager::class)
             ->setMethods(array('translateFieldName'))
             ->getMock();
 
@@ -120,7 +121,7 @@ abstract class AbstractFilterTest extends TestCase
         $modelManager->expects($this->any())
                ->method('translateFieldName')
                ->with($this->anything(), $this->equalTo($fieldName))
-               ->will($this->returnValue($fieldName));
+               ->willReturn($fieldName);
 
         $filter->initialize('filter', array(
             'field_name' => $fieldName,

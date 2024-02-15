@@ -12,6 +12,7 @@ namespace Sonata\PropelAdminBundle\Tests\Filter;
 
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Sonata\AdminBundle\Form\Type\Filter\NumberType;
+use Sonata\PropelAdminBundle\Filter\NumberFilter;
 
 /**
  * Class NumberFilterTest.
@@ -20,16 +21,16 @@ use Sonata\AdminBundle\Form\Type\Filter\NumberType;
  *
  * @since   2014-02-27
  */
-class NumberFilterTest extends AbstractFilterTest
+class NumberFilterTest extends AbstractFilterTestCase
 {
     const FIELD_NAME = 'id';
 
-    protected function getFilterClass()
+    protected function getFilterClass(): string
     {
-        return '\Sonata\PropelAdminBundle\Filter\NumberFilter';
+        return NumberFilter::class;
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
         $data = array('value' => 42);
 

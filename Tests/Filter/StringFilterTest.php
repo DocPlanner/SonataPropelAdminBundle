@@ -20,16 +20,16 @@ use Sonata\PropelAdminBundle\Filter\StringFilter;
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-class StringFilterTest extends AbstractFilterTest
+class StringFilterTest extends AbstractFilterTestCase
 {
     const FIELD_NAME = 'title';
 
-    protected function getFilterClass()
+    protected function getFilterClass(): string
     {
-        return '\Sonata\PropelAdminBundle\Filter\StringFilter';
+        return StringFilter::class;
     }
 
-    public function validDataProvider()
+    public function validDataProvider(): array
     {
         $search = 'foobar';
         $normalizedSearch = '%foobar%';

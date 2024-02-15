@@ -1,6 +1,6 @@
 services:
     blogpost.admin:
-        class:      Sonata\PropelAdminBundle\Tests\Fixtures\Admin\BlogPostAdmin
+        class:      'Sonata\PropelAdminBundle\Tests\Fixtures\Admin\BlogPostAdmin'
         arguments:  [~, 'Sonata\PropelAdminBundle\Tests\Fixtures\Model\BlogPost', '']
         tags:
             -

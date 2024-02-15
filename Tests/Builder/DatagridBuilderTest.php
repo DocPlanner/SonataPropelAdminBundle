@@ -13,6 +13,11 @@ namespace Sonata\PropelAdminBundle\Tests\Builder;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\PropelAdminBundle\Builder\DatagridBuilder;
+use Symfony\Component\Form\FormFactory;
+use Sonata\AdminBundle\Filter\FilterFactoryInterface;
+use Sonata\AdminBundle\Guesser\TypeGuesserInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 
 /**
  * DatagridBuilder tests.
@@ -21,24 +26,24 @@ use Sonata\PropelAdminBundle\Builder\DatagridBuilder;
  */
 class DatagridBuilderTest extends TestCase
 {
-    public function testTextFieldsAreMadeSearchable()
+    public function testTextFieldsAreMadeSearchable(): void
     {
-        $formFactory = $this->getMockBuilder('\Symfony\Component\Form\FormFactory')->disableOriginalConstructor()->getMock();
-        $filterFactory = $this->getMock('\Sonata\AdminBundle\Filter\FilterFactoryInterface');
-        $typeGuesser = $this->getMock('Sonata\AdminBundle\Guesser\TypeGuesserInterface');
-        $admin = $this->getMock('Sonata\AdminBundle\Admin\AdminInterface');
-        $fieldDescription = $this->getMock('Sonata\AdminBundle\Admin\FieldDescriptionInterface');
+        $formFactory = $this->getMockBuilder(FormFactory::class)->disableOriginalConstructor()->getMock();
+        $filterFactory = $this->createMock(FilterFactoryInterface::class);
+        $typeGuesser = $this->createMock(TypeGuesserInterface::class);
+        $admin = $this->createMock(AdminInterface::class);
+        $fieldDescription = $this->createMock(FieldDescriptionInterface::class);
 
         $fieldDescription
             ->expects($this->once())
             ->method('getType')
-            ->will($this->returnValue('text'));
+            ->willReturn('text');
 
         $fieldDescription
             ->expects($this->once())
             ->method('getOption')
             ->with('global_search', true) // we still look the given options
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $fieldDescription
             ->expects($this->once())
@@ -50,18 +55,18 @@ class DatagridBuilderTest extends TestCase
         $builder->fixFieldDescription($admin, $fieldDescription);
     }
 
-    public function testNonTextFieldsAreNotMadeSearchable()
+    public function testNonTextFieldsAreNotMadeSearchable(): void
     {
-        $formFactory = $this->getMockBuilder('\Symfony\Component\Form\FormFactory')->disableOriginalConstructor()->getMock();
-        $filterFactory = $this->getMock('\Sonata\AdminBundle\Filter\FilterFactoryInterface');
-        $typeGuesser = $this->getMock('Sonata\AdminBundle\Guesser\TypeGuesserInterface');
-        $admin = $this->getMock('Sonata\AdminBundle\Admin\AdminInterface');
-        $fieldDescription = $this->getMock('Sonata\AdminBundle\Admin\FieldDescriptionInterface');
+        $formFactory = $this->getMockBuilder(FormFactory::class)->disableOriginalConstructor()->getMock();
+        $filterFactory = $this->createMock(FilterFactoryInterface::class);
+        $typeGuesser = $this->createMock(TypeGuesserInterface::class);
+        $admin = $this->createMock(AdminInterface::class);
+        $fieldDescription = $this->createMock(FieldDescriptionInterface::class);
 
         $fieldDescription
             ->expects($this->once())
             ->method('getType')
-            ->will($this->returnValue('integer'));
+            ->willReturn('integer');
 
         $fieldDescription
             ->expects($this->never())

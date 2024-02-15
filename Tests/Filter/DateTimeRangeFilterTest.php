@@ -16,7 +16,7 @@ namespace Sonata\PropelAdminBundle\Tests\Filter;
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-class DateTimeRangeFilterTest extends AbstractDateRangeFilterTest
+class DateTimeRangeFilterTest extends AbstractDateRangeFilterTestCase
 {
     protected function getFilterClass()
     {
