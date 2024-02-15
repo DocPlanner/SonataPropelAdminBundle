@@ -1,7 +1,7 @@
 Propel Admin
 ============
 
-[![Build Status](https://secure.travis-ci.org/sonata-project/SonataPropelAdminBundle.png?branch=master)](http://travis-ci.org/sonata-project/SonataPropelAdminBundle)
+[![CI](https://github.com/DocPlanner/SonataPropelAdminBundle/actions/workflows/tests.yml/badge.svg)](https://github.com/DocPlanner/SonataPropelAdminBundle/actions/workflows/tests.yml)
 
 This bundle integrates the SonataAdminBundle with the Propel ORM project.
 
