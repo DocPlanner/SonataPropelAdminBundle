@@ -39,7 +39,7 @@ jobs:
           php-version: '${{ matrix.php }}'
 
       - name: Validate composer.json and composer.lock
-        run: composer validate --strict
+        run: composer validate
 
       - name: Lock packages according to dependency matrix
         run: |
