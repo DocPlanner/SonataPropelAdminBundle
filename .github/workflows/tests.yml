@@ -47,6 +47,8 @@ jobs:
             'symfony/form: ${{ matrix.symfony }}' \
             'symfony/framework-bundle: ${{ matrix.symfony }}'
           
+          rm composer.lock
+          
           composer require --ansi --no-scripts --update-with-all-dependencies --no-install --dev \
             'symfony/browser-kit: ${{ matrix.symfony }}' \
             'symfony/console: ${{ matrix.symfony }}' \
