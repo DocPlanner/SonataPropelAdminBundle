@@ -64,5 +64,5 @@ jobs:
       - name: Install dependencies
         run: composer install --ansi --prefer-dist --no-interaction --no-scripts
 
-#      - name: PHPUnit
-#        run: vendor/bin/phpunit
+      - name: PHPUnit
+        run: vendor/bin/phpunit
