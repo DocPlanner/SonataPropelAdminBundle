@@ -7,10 +7,9 @@ composer.lock
 phpunit.xml
 .php_cs.cache
 .phpunit.result.cache
-Tests/Fixtures/App/app/cache
-!Tests/Fixtures/App/app/cache/.gitignore
-Tests/Fixtures/App/app/logs
-!Tests/Fixtures/App/app/logs/.gitignore
+/var
+!/var/cache/.gitignore
+!/var/log/.gitignore
 # propel-generated stuff
 Tests/Fixtures/App/app/propel/sql/
 Tests/Fixtures/App/src/Sonata/TestBundle/Model/Base
