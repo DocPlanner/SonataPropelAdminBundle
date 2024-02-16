@@ -195,7 +195,7 @@ class ListBuilderTest extends TestCase
     public function testCorrectFixedActionsFieldType(): void
     {
         $this->typeGuesser->expects($this->once())->method('guessType')
-            ->willReturn(new TypeGuess(null, array(), Guess::LOW_CONFIDENCE));
+            ->willReturn(null);
         $this->admin->expects($this->atLeastOnce())->method('getModelManager')
             ->willReturn($this->modelManager);
 

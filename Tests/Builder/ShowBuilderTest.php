@@ -56,7 +56,7 @@ class ShowBuilderTest extends TestCase
         $this->typeGuesser
             ->expects($this->once())
             ->method('guessType')
-            ->willReturn(new TypeGuess(null, [], TypeGuess::HIGH_CONFIDENCE));
+            ->willReturn(null);
 
         $builder = new ShowBuilder($this->typeGuesser);
         $field = new FieldDescription();

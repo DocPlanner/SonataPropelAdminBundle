@@ -29,6 +29,10 @@ abstract class AbstractTypeGuesser implements TypeGuesserInterface
         $guesser = new TypeGuesser();
         $guessedType = $guesser->guessType($class, $property);
 
+        if (null === $guessedType) {
+            return null;
+        }
+
         if ($guessedType->getType() === 'checkbox') {
             return new TypeGuess('boolean', $guessedType->getOptions(), $guessedType->getConfidence());
         }
