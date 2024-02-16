@@ -204,6 +204,6 @@ class ProxyQuery implements ProxyQueryInterface
 
     public function hasMethod($method)
     {
-        return method_exists($this, $method) || method_exists($this->query, $method);
+        return method_exists($this, $method) || (null !== $this->query && method_exists($this->query, $method));
     }
 }
