@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Datagrid\Datagrid as BaseDatagrid;
 use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * @author Toni Uebernickel <tuebernickel@gmail.com>
@@ -36,20 +37,20 @@ class Datagrid extends BaseDatagrid
 		}
 
 		foreach ($this->getFilters() as $name => $filter) {
-			list($type, $options) = $filter->getRenderSettings();
+			[$type, $options] = $filter->getRenderSettings();
 
 			$this->formBuilder->add($filter->getFormName(), $type, $options);
 		}
 
-		$this->formBuilder->add('_sort_by', 'hidden');
+		$this->formBuilder->add('_sort_by', HiddenType::class);
 		$this->formBuilder->get('_sort_by')->addViewTransformer(new CallbackTransformer(
 			function ($value) { return $value; },
 			function ($value) { return $value instanceof FieldDescriptionInterface ? $value->getName() : $value; }
 		));
 
-		$this->formBuilder->add('_sort_order', 'hidden');
-		$this->formBuilder->add('_page', 'hidden');
-		$this->formBuilder->add('_per_page', 'hidden');
+		$this->formBuilder->add('_sort_order', HiddenType::class);
+		$this->formBuilder->add('_page', HiddenType::class);
+		$this->formBuilder->add('_per_page', HiddenType::class);
 
 		$this->form = $this->formBuilder->getForm();
 		$this->form->submit($this->values);

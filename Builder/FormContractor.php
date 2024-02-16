@@ -15,6 +15,7 @@ use Propel\Runtime\Map\RelationMap;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Builder\FormContractorInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactoryInterface;
 
@@ -62,7 +63,7 @@ class FormContractor implements FormContractorInterface
      */
     public function getFormBuilder($name, array $options = array())
     {
-        return $this->formFactory->createNamedBuilder($name, 'form', null, $options);
+        return $this->formFactory->createNamedBuilder($name, FormType::class, null, $options);
     }
 
     /**
