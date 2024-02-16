@@ -31,8 +31,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('sonata_propel_orm_admin', 'array');
+        $treeBuilder = new TreeBuilder('sonata_propel_orm_admin');
+        $rootNode    = !method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->root('sonata_propel_orm_admin') : $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
