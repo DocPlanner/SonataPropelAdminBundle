@@ -55,9 +55,10 @@ jobs:
           composer require --ansi --no-scripts --update-with-all-dependencies --no-install --dev \
             'symfony/browser-kit: ${{ matrix.symfony }}' \
             'symfony/console: ${{ matrix.symfony }}' \
-            'symfony/twig-bundle: ${{ matrix.symfony }}' \
+            'symfony/css-selector: ${{ matrix.symfony }}' \
             'symfony/phpunit-bridge: ${{ matrix.symfony }}' \
-            'symfony/css-selector: ${{ matrix.symfony }}'
+            'symfony/twig-bundle: ${{ matrix.symfony }}' \
+            'symfony/var-dumper: ${{ matrix.symfony }}'
           
           rm composer.lock
 

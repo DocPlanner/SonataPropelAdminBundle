@@ -16,20 +16,22 @@
         "propel/propel": "^2.0.0-beta1",
         "sonata-project/admin-bundle": "~3.0",
         "sonata-project/block-bundle": "~3.0",
+        "sonata-project/core-bundle": "^3.17",
         "sonata-project/exporter": "1.x-dev#7ea2008067c70b8caa70b9be72da40bea7104056",
         "symfony/form": "^3.4 || ^4.0",
-        "symfony/framework-bundle": "^3.4 || ^4.0"
+        "symfony/framework-bundle": "^3.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9",
         "knplabs/knp-menu-bundle": ">=1.1.0,<3.0.0",
+        "phpunit/phpunit": "^9",
         "skyfox/propel-bundle": "~5.0.2@dev",
-        "symfony/browser-kit": "^3.4 || ^4.0",
-        "symfony/console": "^3.4 || ^4.0",
+        "symfony/browser-kit": "^3.4",
+        "symfony/console": "^3.4",
+        "symfony/css-selector": "^3.4",
+        "symfony/phpunit-bridge": "^3.4",
         "symfony/security-bundle": "^4.0",
-        "symfony/twig-bundle": "^3.4 || ^4.0",
-        "symfony/phpunit-bridge": "^3.4 || ^4.0",
-        "symfony/css-selector": "^3.4 || ^4.0"
+        "symfony/twig-bundle": "^3.4",
+        "symfony/var-dumper": "^3.4"
     },
     "conflict": {
         "doctrine/annotations": ">1"
@@ -45,6 +47,9 @@
     },
     "autoload-dev": {
         "psr-4": { "Sonata\\PropelAdminBundle\\Tests\\": "Tests/" }
+    },
+    "config": {
+        "sort-packages": true
     },
     "target-dir": "Sonata/PropelAdminBundle"
 }
