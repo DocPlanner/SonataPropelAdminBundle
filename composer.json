@@ -31,6 +31,9 @@
         "symfony/phpunit-bridge": "^3.4 || ^4.0",
         "symfony/css-selector": "^3.4 || ^4.0"
     },
+    "conflict": {
+        "doctrine/annotations": ">1"
+    },
     "provide": {
         "sonata-project/admin-bundle-persistency-layer": "1.0.0"
     },
