@@ -22,10 +22,13 @@ use Sonata\PropelAdminBundle\Tests\Functional\WebTestCase;
  */
 class ProxyQueryTest extends WebTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        self::markTestIncomplete('This test has not been implemented yet.');
+    }
+
     public function testWithVirtualColumns(): void
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
-
 //        $query = $this->getMockBuilder('\Sonata\TestBundle\Model\BlogPostQuery', array('filterByTitle'))
 //            ->disableOriginalConstructor()
 //            ->getMock();
