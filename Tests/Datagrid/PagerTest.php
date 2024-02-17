@@ -27,14 +27,14 @@ class PagerTest extends TestCase
         $query = $this->getMockBuilder(ProxyQuery::class, array('execute'))
             ->disableOriginalConstructor()
             ->getMock();
-        $query->expects($this->once())
+        $query->expects(self::once())
             ->method('execute')
             ->willReturn(42);
 
         $pager = new Pager();
         $pager->setQuery($query);
 
-        $this->assertSame(42, $pager->getResults());
+        self::assertSame(42, $pager->getResults());
     }
 
     /**
@@ -45,10 +45,18 @@ class PagerTest extends TestCase
         // configure the query
         $query = $this->getProxyMock();
 
+        $query->expects(self::once())
+            ->method('setFirstResult')
+            ->withConsecutive([null]);
+
+        $query->expects(self::once())
+            ->method('setMaxResults')
+            ->withConsecutive([null]);
+
         // configure the pager
         $pager = $this->getMockBuilder(Pager::class)->onlyMethods(array('computeNbResults'))->getMock();
 
-        $pager->expects($this->once())
+        $pager->expects(self::once())
             ->method('computeNbResults')
             ->willReturn($nbResults);
 
@@ -58,7 +66,7 @@ class PagerTest extends TestCase
 
         // and test!
         $pager->init();
-        $this->assertSame(0, $pager->getLastPage());
+        self::assertSame(0, $pager->getLastPage());
     }
 
     /**
@@ -69,18 +77,24 @@ class PagerTest extends TestCase
         // configure the query
         $query = $this->getProxyMock();
 
-        $query->expects($this->at(2))
+        $query->expects(self::exactly(2))
             ->method('setFirstResult')
-            ->with($this->equalTo($firstResult));
+            ->withConsecutive(
+                [null],
+                [$firstResult]
+            );
 
-        $query->expects($this->at(3))
+        $query->expects(self::exactly(2))
             ->method('setMaxResults')
-            ->with($this->equalTo($maxPerPage));
+            ->withConsecutive(
+                [null],
+                [$maxPerPage]
+            );
 
         // configure the pager
         $pager = $this->getMockBuilder(Pager::class)->onlyMethods(array('computeNbResults'))->getMock();
 
-        $pager->expects($this->once())
+        $pager->expects(self::once())
             ->method('computeNbResults')
             ->willReturn($nbResults);
 
@@ -90,7 +104,7 @@ class PagerTest extends TestCase
 
         // and test!
         $pager->init();
-        $this->assertSame($lastPage, $pager->getLastPage());
+        self::assertSame($lastPage, $pager->getLastPage());
     }
 
     public function invalidParametersProvider(): array
@@ -120,14 +134,6 @@ class PagerTest extends TestCase
         $query = $this->getMockBuilder(ProxyQuery::class)
             ->disableOriginalConstructor()
             ->getMock();
-
-        $query->expects($this->at(0))
-            ->method('setFirstResult')
-            ->with($this->equalTo(null));
-
-        $query->expects($this->at(1))
-            ->method('setMaxResults')
-            ->with($this->equalTo(null));
 
         return $query;
     }

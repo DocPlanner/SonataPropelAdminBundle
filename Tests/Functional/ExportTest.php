@@ -28,10 +28,10 @@ class ExportTest extends WebTestCase
             $crawler = $client->request('GET', '/admin/sonata/test/blogpost/list');
             $link_selector = $this->getExportLinksSelector();
 
-            $this->assertTrue($client->getResponse()->isSuccessful());
-            $this->assertSame(count($this->expected_formats), $crawler->filter($link_selector)->count(), 'There are 4 possible export formats');
+            self::assertTrue($client->getResponse()->isSuccessful());
+            self::assertSame(count($this->expected_formats), $crawler->filter($link_selector)->count(), 'There are 4 possible export formats');
             foreach ($this->expected_formats as $format) {
-                $this->assertCount(1, $crawler->filter(sprintf('%s:contains("%s")', $link_selector, $format), sprintf('The format %s is proposed', $format)));
+                self::assertCount(1, $crawler->filter(sprintf('%s:contains("%s")', $link_selector, $format), sprintf('The format %s is proposed', $format)));
             }
         }
         finally
@@ -55,7 +55,7 @@ class ExportTest extends WebTestCase
                 ->save();
             $crawler = $client->request('GET', '/admin/sonata/test/blogpost/list');
 
-            $this->assertTrue($client->getResponse()->isSuccessful());
+            self::assertTrue($client->getResponse()->isSuccessful());
             foreach ($this->expected_formats as $format) {
                 $link = $crawler->selectLink($format)->link();
 
@@ -67,7 +67,7 @@ class ExportTest extends WebTestCase
                 $client->click($link);
                 ob_end_clean();
 
-                $this->assertTrue($client->getResponse()->isSuccessful(), sprintf('BlogPosts can be exported to %s', $format));
+                self::assertTrue($client->getResponse()->isSuccessful(), sprintf('BlogPosts can be exported to %s', $format));
             }
         }
         finally

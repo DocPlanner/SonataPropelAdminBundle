@@ -26,6 +26,6 @@ class DateTimeRangeFilterTest extends AbstractDateRangeFilterTestCase
     public function testRenderSettingsHasRightName()
     {
         $settings = $this->filter->getRenderSettings();
-        $this->assertEquals('sonata_type_filter_datetime_range', $settings[0]);
+        self::assertEquals('sonata_type_filter_datetime_range', $settings[0]);
     }
 }

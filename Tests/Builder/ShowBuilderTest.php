@@ -49,12 +49,12 @@ class ShowBuilderTest extends TestCase
 
         $modelManager = $this->createMock(ModelManagerInterface::class);
         $this->admin
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getModelManager')
             ->willReturn($modelManager);
 
         $this->typeGuesser
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('guessType')
             ->willReturn(null);
 
@@ -73,7 +73,7 @@ class ShowBuilderTest extends TestCase
         $builder = new ShowBuilder($this->typeGuesser, $templatesMap);
         $builder->addField($this->list, $type, $field, $this->admin);
 
-        $this->assertSame($expectedTemplate, $field->getTemplate());
+        self::assertSame($expectedTemplate, $field->getTemplate());
     }
 
     public function addFieldFixesTemplateProvider(): array
@@ -106,7 +106,7 @@ class ShowBuilderTest extends TestCase
         $builder->addField($this->list, 'text', $field, $this->admin);
 
         foreach ($expectedOptions as $option => $value) {
-            $this->assertSame($value, $field->getOption($option), 'Testing option '.$option);
+            self::assertSame($value, $field->getOption($option), 'Testing option '.$option);
         }
     }
 

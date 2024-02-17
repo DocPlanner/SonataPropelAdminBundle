@@ -57,7 +57,7 @@ class ListBuilderTest extends TestCase
         $builder = new ListBuilder($this->typeGuesser, $templatesMap);
         $builder->addField($this->list, $type, $field, $this->admin);
 
-        $this->assertSame($expectedTemplate, $field->getTemplate());
+        self::assertSame($expectedTemplate, $field->getTemplate());
     }
 
     public function addFieldFixesTemplateProvider(): array
@@ -90,7 +90,7 @@ class ListBuilderTest extends TestCase
         $builder->addField($this->list, 'text', $field, $this->admin);
 
         foreach ($expectedOptions as $option => $value) {
-            $this->assertSame($value, $field->getOption($option), 'Testing option '.$option);
+            self::assertSame($value, $field->getOption($option), 'Testing option '.$option);
         }
     }
 
@@ -168,10 +168,10 @@ class ListBuilderTest extends TestCase
         $builder = new ListBuilder($this->typeGuesser);
         $builder->addField($this->list, 'actions', $field, $this->admin);
 
-        $this->assertSame('SonataAdminBundle:CRUD:list__action.html.twig', $field->getTemplate());
-        $this->assertSame('Action', $field->getOption('name'));
-        $this->assertSame('Action', $field->getOption('code'));
-        $this->assertSame(array(
+        self::assertSame('SonataAdminBundle:CRUD:list__action.html.twig', $field->getTemplate());
+        self::assertSame('Action', $field->getOption('name'));
+        self::assertSame('Action', $field->getOption('code'));
+        self::assertSame(array(
             'show' => array('template' => 'SonataAdminBundle:CRUD:list__action_show.html.twig'),
             'edit' => array('template' => 'SonataAdminBundle:CRUD:list__action_edit.html.twig'),
         ), $field->getOption('actions'));
@@ -185,7 +185,7 @@ class ListBuilderTest extends TestCase
         $list = $builder->getBaseList();
         $builder->addField($list, 'actions', $fieldDescription, $this->admin);
 
-        $this->assertSame(
+        self::assertSame(
             'SonataAdminBundle:CRUD:list__action.html.twig',
             $list->get('foo')->getTemplate(),
             'Custom list action field has a default list action template assigned'
@@ -194,9 +194,9 @@ class ListBuilderTest extends TestCase
 
     public function testCorrectFixedActionsFieldType(): void
     {
-        $this->typeGuesser->expects($this->once())->method('guessType')
+        $this->typeGuesser->expects(self::once())->method('guessType')
             ->willReturn(null);
-        $this->admin->expects($this->atLeastOnce())->method('getModelManager')
+        $this->admin->expects(self::atLeastOnce())->method('getModelManager')
             ->willReturn($this->modelManager);
 
         $builder = new ListBuilder($this->typeGuesser);
@@ -205,7 +205,7 @@ class ListBuilderTest extends TestCase
         $list = $builder->getBaseList();
         $builder->addField($list, null, $fieldDescription, $this->admin);
 
-        $this->assertSame(
+        self::assertSame(
             'actions',
             $list->get('_action')->getType(),
             'Standard list _action field has "actions" type'

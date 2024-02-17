@@ -55,9 +55,9 @@ abstract class AbstractDateRangeFilterTestCase extends TestCase
         $this->filter->apply($query, $value);
 
         if ($filterValid) {
-            $this->assertTrue($this->filter->isActive(), 'The filter is active but the query should not be altered');
+            self::assertTrue($this->filter->isActive(), 'The filter is active but the query should not be altered');
         } else {
-            $this->assertFalse($this->filter->isActive(), 'The filter is not active.');
+            self::assertFalse($this->filter->isActive(), 'The filter is not active.');
         }
     }
 
@@ -69,32 +69,23 @@ abstract class AbstractDateRangeFilterTestCase extends TestCase
         $data = array_merge($data, array('type' => $comparisonType));
         $query = $this->getQueryMock();
 
-        $query->expects($this->at(0))
+        $query->expects(self::atLeastOnce())
                ->method('getModelName')
-               ->willReturn('not null');
+               ->willReturnOnConsecutiveCalls('not null');
 
-        $query->expects($this->at(1))
-               ->method('filterBy')
-               ->with(
-                   $this->equalTo(self::FIELD_NAME),
-                   $this->equalTo($startNormalizedData),
-                   $this->equalTo($startComparisonOperator)
-               );
-
-        $query->expects($this->at(2))
-               ->method('filterBy')
-               ->with(
-                   $this->equalTo(self::FIELD_NAME),
-                   $this->equalTo($endNormalizedData),
-                   $this->equalTo($endComparisonOperator)
-               );
+        $query->expects(self::exactly(2))
+            ->method('filterBy')
+            ->withConsecutive(
+                [self::FIELD_NAME, $startNormalizedData, $startComparisonOperator],
+                [self::FIELD_NAME, $endNormalizedData, $endComparisonOperator]
+            );
 
         foreach ($filterOptions as $name => $value) {
             $this->filter->setOption($name, $value);
         }
 
         $this->filter->apply($query, $data);
-        $this->assertTrue($this->filter->isActive());
+        self::assertTrue($this->filter->isActive());
     }
 
     /**
@@ -105,38 +96,33 @@ abstract class AbstractDateRangeFilterTestCase extends TestCase
         $data = array_merge($data, array('type' => $comparisonType));
         $query = $this->getQueryMock();
 
-        $query->expects($this->at(0))
+        $query->expects(self::once())
                ->method('getModelName')
                ->willReturn('not null');
 
-        $query->expects($this->at(1))
-               ->method('filterBy')
-               ->with(
-                   $this->equalTo(self::FIELD_NAME),
-                   $this->equalTo($startNormalizedData),
-                   $this->equalTo($startComparisonOperator)
-               )
-                ->willReturnSelf();
+        $query->expects(self::exactly(2))
+            ->method('filterBy')
+            ->withCOnsecutive(
+                [self::FIELD_NAME, $startNormalizedData, $startComparisonOperator],
+                [self::anything(), self::anything(), self::anything()],
+                [self::FIELD_NAME, $endNormalizedData, $endComparisonOperator]
+            )
+            ->willReturnOnConsecutiveCalls(
+                $this->returnSelf(),
+                $this->returnSelf(),
+                $this->returnSelf(),
+            );
 
-        $query->expects($this->at(2))
+        $query->expects(self::once())
                ->method('_or')
                ->willReturnSelf();
-
-        $query->expects($this->at(3))
-               ->method('filterBy')
-               ->with(
-                   $this->equalTo(self::FIELD_NAME),
-                   $this->equalTo($endNormalizedData),
-                   $this->equalTo($endComparisonOperator)
-               )
-                ->willReturnSelf();
 
         foreach ($filterOptions as $name => $value) {
             $this->filter->setOption($name, $value);
         }
 
         $this->filter->apply($query, $data);
-        $this->assertTrue($this->filter->isActive());
+        self::assertTrue($this->filter->isActive());
     }
 
     public function invalidDataProvider(): array
@@ -204,9 +190,9 @@ abstract class AbstractDateRangeFilterTestCase extends TestCase
         $filterClass = $this->getFilterClass();
         $filter = new $filterClass($modelManager);
 
-        $modelManager->expects($this->any())
+        $modelManager
                ->method('translateFieldName')
-               ->with($this->anything(), $this->equalTo($fieldName))
+               ->with(self::anything(), $fieldName)
                ->willReturn($fieldName);
 
         $filter->initialize('filter', array(

@@ -27,8 +27,8 @@ class FieldDescriptionTest extends TestCase
             'fieldName' => 'position',
         ));
 
-        $this->assertEquals('integer', $field->getType());
-        $this->assertEquals('integer', $field->getMappingType());
+        self::assertEquals('integer', $field->getType());
+        self::assertEquals('integer', $field->getMappingType());
 
         // cannot overwrite defined definition
         $field->setAssociationMapping(array(
@@ -36,12 +36,12 @@ class FieldDescriptionTest extends TestCase
             'fieldName' => 'overwritten',
         ));
 
-        $this->assertEquals('integer', $field->getType());
-        $this->assertEquals('integer', $field->getMappingType());
+        self::assertEquals('integer', $field->getType());
+        self::assertEquals('integer', $field->getMappingType());
 
         $field->setMappingType('string');
-        $this->assertEquals('string', $field->getMappingType());
-        $this->assertEquals('integer', $field->getType());
+        self::assertEquals('string', $field->getMappingType());
+        self::assertEquals('integer', $field->getType());
     }
 
     public function testSetParentAssociationMappings(): void
@@ -49,7 +49,7 @@ class FieldDescriptionTest extends TestCase
         $field = new FieldDescription();
         $field->setParentAssociationMappings(array(array('test')));
 
-        $this->assertEquals(array(array('test')), $field->getParentAssociationMappings());
+        self::assertEquals(array(array('test')), $field->getParentAssociationMappings());
     }
 
     public function testSetParentAssociationMappingsAllowOnlyForArray(): void
@@ -86,7 +86,7 @@ class FieldDescriptionTest extends TestCase
         $field = new FieldDescription();
         $field->setFieldMapping($fieldMapping);
 
-        $this->assertEquals('integer', $field->getType());
+        self::assertEquals('integer', $field->getType());
     }
 
     public function testSetFieldMappingSetMappingType(): void
@@ -98,7 +98,7 @@ class FieldDescriptionTest extends TestCase
         $field = new FieldDescription();
         $field->setFieldMapping($fieldMapping);
 
-        $this->assertEquals('integer', $field->getMappingType());
+        self::assertEquals('integer', $field->getMappingType());
     }
 
     public function testGetTargetEntity(): void
@@ -110,24 +110,24 @@ class FieldDescriptionTest extends TestCase
 
         $field = new FieldDescription();
 
-        $this->assertNull($field->getTargetEntity());
+        self::assertNull($field->getTargetEntity());
 
         $field->setAssociationMapping($associationMapping);
 
-        $this->assertEquals('someValue', $field->getTargetEntity());
+        self::assertEquals('someValue', $field->getTargetEntity());
     }
 
     public function testGetValue(): void
     {
         $mockedObject = $this->getMockBuilder('stdClass')->addMethods(array('myMethod'))->getMock();
-        $mockedObject->expects($this->once())
+        $mockedObject->expects(self::once())
             ->method('myMethod')
             ->willReturn('myMethodValue');
 
         $field = new FieldDescription();
         $field->setOption('code', 'myMethod');
 
-        $this->assertEquals('myMethodValue', $field->getValue($mockedObject));
+        self::assertEquals('myMethodValue', $field->getValue($mockedObject));
     }
 
     public function testGetValueWhenCannotRetrieve(): void
@@ -141,7 +141,7 @@ class FieldDescriptionTest extends TestCase
 
         $field = new FieldDescription();
 
-        $this->assertEquals('myMethodValue', $field->getValue($mockedObject));
+        self::assertEquals('myMethodValue', $field->getValue($mockedObject));
     }
 
     public function testIsIdentifierFromFieldMapping(): void
@@ -155,6 +155,6 @@ class FieldDescriptionTest extends TestCase
         $field = new FieldDescription();
         $field->setFieldMapping($fieldMapping);
 
-        $this->assertEquals('someId', $field->isIdentifier());
+        self::assertEquals('someId', $field->isIdentifier());
     }
 }

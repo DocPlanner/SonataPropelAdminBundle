@@ -33,7 +33,7 @@ class ProxyQueryTest extends WebTestCase
 //            ->disableOriginalConstructor()
 //            ->getMock();
 
-//        $query->expects($this->once())
+//        $query->expects(self::once())
 //            ->method('filterByIsPublished')
 //            ->with(
 //                $this->equalTo(true),
@@ -50,7 +50,7 @@ class ProxyQueryTest extends WebTestCase
 //        $query = $this->getMockBuilder('\Sonata\TestBundle\Model\BlogPostQuery', array('filterByTitle'))
 //            ->disableOriginalConstructor()
 //            ->getMock();
-//        $query->expects($this->once())
+//        $query->expects(self::once())
 //            ->method('filterByTitle')
 //            ->with(
 //                $this->equalTo('dummy title'),
@@ -66,7 +66,7 @@ class ProxyQueryTest extends WebTestCase
 //        $query = $this->getMockBuilder('\Sonata\TestBundle\Model\BlogPostQuery', array('filterBy'))
 //            ->disableOriginalConstructor()
 //            ->getMock();
-//        $query->expects($this->once())
+//        $query->expects(self::once())
 //            ->method('filterBy')
 //            ->with(
 //                $this->equalTo('Slug'),
@@ -84,7 +84,7 @@ class ProxyQueryTest extends WebTestCase
 //            ->disableOriginalConstructor()
 //            ->getMock();
 //        $query
-//            ->expects($this->once())
+//            ->expects(self::once())
 //            ->method('find');
 //        $query
 //            ->expects($this->never())
@@ -100,10 +100,10 @@ class ProxyQueryTest extends WebTestCase
 //            ->disableOriginalConstructor()
 //            ->getMock();
 //        $query
-//            ->expects($this->once())
+//            ->expects(self::once())
 //            ->method('find');
 //        $query
-//            ->expects($this->once())
+//            ->expects(self::once())
 //            ->method('orderBy')
 //            ->with('Slug', 'ASC');
 //
@@ -122,8 +122,8 @@ class ProxyQueryTest extends WebTestCase
 //
 //        $proxy = new ProxyQuery($query);
 //
-//        $this->assertSame(0, $proxy->getUniqueParameterId());
-//        $this->assertSame(1, $proxy->getUniqueParameterId());
-//        $this->assertSame(2, $proxy->getUniqueParameterId());
+//        self::assertSame(0, $proxy->getUniqueParameterId());
+//        self::assertSame(1, $proxy->getUniqueParameterId());
+//        self::assertSame(2, $proxy->getUniqueParameterId());
 //    }
 }

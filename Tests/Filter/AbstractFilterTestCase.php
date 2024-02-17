@@ -50,7 +50,7 @@ abstract class AbstractFilterTestCase extends TestCase
         $query = $this->getQueryMock();
 
         $this->filter->apply($query, $value);
-        $this->assertFalse($this->filter->isActive());
+        self::assertFalse($this->filter->isActive());
     }
 
     /**
@@ -61,7 +61,7 @@ abstract class AbstractFilterTestCase extends TestCase
         $data = array_merge($data, array('type' => $comparisonType));
 
         $query = $this->getQueryMock();
-        $query->expects($this->once())
+        $query->expects(self::once())
                ->method('filterBy')
                ->with(
                    $this->equalTo(self::FIELD_NAME),
@@ -74,7 +74,7 @@ abstract class AbstractFilterTestCase extends TestCase
         }
 
         $this->filter->apply($query, $data);
-        $this->assertTrue($this->filter->isActive());
+        self::assertTrue($this->filter->isActive());
     }
 
     public function invalidDataProvider(): array
@@ -95,7 +95,6 @@ abstract class AbstractFilterTestCase extends TestCase
             ->getMock();
 
         $query
-            ->expects($this->any())
             ->method('getModelName')
             ->willReturn('\Foo\Model\Bar');
 
@@ -118,9 +117,9 @@ abstract class AbstractFilterTestCase extends TestCase
         $filterClass = $this->getFilterClass();
         $filter = new $filterClass($modelManager);
 
-        $modelManager->expects($this->any())
+        $modelManager
                ->method('translateFieldName')
-               ->with($this->anything(), $this->equalTo($fieldName))
+               ->with(self::anything(), self::equalTo($fieldName))
                ->willReturn($fieldName);
 
         $filter->initialize('filter', array(

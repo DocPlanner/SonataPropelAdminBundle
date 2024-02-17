@@ -35,14 +35,14 @@ class ModelManagerTest extends TestCase
         $manager = new ModelManager();
         $collection = $manager->getModelCollectionInstance(\DateTime::class);
 
-        $this->assertInstanceOf(ObjectCollection::class, $collection);
-        $this->assertSame('DateTime', $collection->getModel());
+        self::assertInstanceOf(ObjectCollection::class, $collection);
+        self::assertSame('DateTime', $collection->getModel());
     }
 
     public function testCollectionClearWhenAlreadyEmpty(): void
     {
         $collection = new ObjectCollection();
-        $this->assertTrue($collection->isEmpty());
+        self::assertTrue($collection->isEmpty());
     }
 
     public function testCollectionClear(): void
@@ -56,7 +56,7 @@ class ModelManagerTest extends TestCase
         $collection->append($object);
 
         $manager->collectionClear($collection);
-        $this->assertTrue($collection->isEmpty());
+        self::assertTrue($collection->isEmpty());
     }
 
     public function testCollectionAdd()
@@ -68,14 +68,14 @@ class ModelManagerTest extends TestCase
         $object->id = 1;
         $object->foo = 42;
 
-        $this->assertTrue($collection->isEmpty());
+        self::assertTrue($collection->isEmpty());
 
         $manager->collectionAddElement($collection, $object);
-        $this->assertSame(array(
+        self::assertSame(array(
             $object,
         ), $collection->getArrayCopy());
 
-        $this->assertCount(1, $collection);
+        self::assertCount(1, $collection);
     }
 
     public function testCollectionHas()
@@ -93,8 +93,8 @@ class ModelManagerTest extends TestCase
         $collection = new ObjectCollection();
         $collection->append($object);
 
-        $this->assertTrue($manager->collectionHasElement($collection, $object));
-        $this->assertFalse($manager->collectionHasElement($collection, $otherObject));
+        self::assertTrue($manager->collectionHasElement($collection, $object));
+        self::assertFalse($manager->collectionHasElement($collection, $otherObject));
     }
 
     public function testCollectionRemove(): void
@@ -108,13 +108,13 @@ class ModelManagerTest extends TestCase
         $collection = new ObjectCollection();
         $collection->append($object);
 
-        $this->assertSame(array(
+        self::assertSame(array(
             $object,
         ), $collection->getArrayCopy());
 
         $manager->collectionRemoveElement($collection, $object);
 
-        $this->assertTrue($collection->isEmpty());
+        self::assertTrue($collection->isEmpty());
     }
 
     public function testCollectionRemoveDoesNothingWhenObjectIsNotFound(): void
@@ -132,13 +132,13 @@ class ModelManagerTest extends TestCase
         $collection = new ObjectCollection();
         $collection->append($object);
 
-        $this->assertSame(array(
+        self::assertSame(array(
             $object,
         ), $collection->getArrayCopy());
 
         $manager->collectionRemoveElement($collection, $otherObject);
 
-        $this->assertSame(array(
+        self::assertSame(array(
             $object,
         ), $collection->getArrayCopy());
     }
@@ -160,15 +160,15 @@ class ModelManagerTest extends TestCase
         // configure the query mock
         $query = $this->createMock(ProxyQueryInterface::class);
 
-//        $query->expects($this->once())
+//        $query->expects(self::once())
 //            ->method('setFirstResult')
 //            ->with($this->equalTo($firstResult));
 
-//        $query->expects($this->once())
+//        $query->expects(self::once())
 //            ->method('setMaxResults')
 //            ->with($this->equalTo($maxResults));
 
-//        $query->expects($this->once())
+//        $query->expects(self::once())
 //            ->method('execute')
 //            ->will($this->returnValue($results));
 //
@@ -178,10 +178,10 @@ class ModelManagerTest extends TestCase
             ->setMethods(array('buildPager', 'getQuery'))
             ->getMock();
 
-//        $datagrid->expects($this->once())
+//        $datagrid->expects(self::once())
 //               ->method('buildPager');
 
-//        $datagrid->expects($this->once())
+//        $datagrid->expects(self::once())
 //                 ->method('getQuery')
 //                 ->will($this->returnValue($query));
 //
@@ -190,8 +190,8 @@ class ModelManagerTest extends TestCase
 //
 //        // and finally test it!
 //        $collectionIterator = $manager->getDataSourceIterator($datagrid, $fields, $firstResult, $maxResults);
-//        $this->assertInstanceOf('\Exporter\Source\PropelCollectionSourceIterator', $collectionIterator);
-//        $this->assertSame(array(
+//        self::assertInstanceOf('\Exporter\Source\PropelCollectionSourceIterator', $collectionIterator);
+//        self::assertSame(array(
 //            array('title' => 'Super!'),
 //            array('title' => 'Foo'),
 //        ), iterator_to_array($collectionIterator));
@@ -203,12 +203,12 @@ class ModelManagerTest extends TestCase
 //    public function testGetIdentifierValues($modelClass, $pkValues, $expectedValues)
 //    {
 //        $model = $this->getMock($modelClass);
-//        $model->expects($this->once())
+//        $model->expects(self::once())
 //            ->method('getPrimaryKey')
 //            ->will($this->returnValue($pkValues));
 //
 //        $manager = new ModelManager();
-//        $this->assertSame($expectedValues, $manager->getIdentifierValues($model));
+//        self::assertSame($expectedValues, $manager->getIdentifierValues($model));
 //    }
 
     public function testGetIdentifierValuesWithInvalidModel(): void
@@ -220,7 +220,7 @@ class ModelManagerTest extends TestCase
 //            ->method('getPrimaryKey');
 //
 //        $manager = new ModelManager();
-//        $this->assertNull($manager->getIdentifierValues($model));
+//        self::assertNull($manager->getIdentifierValues($model));
     }
 
 //    public function getIdentifierValuesDataProvider()
@@ -243,12 +243,12 @@ class ModelManagerTest extends TestCase
 //    public function testGetNormalizedIdentifier($modelClass, $pkValues, $expectedValues)
 //    {
 //        $model = $this->getMock($modelClass);
-//        $model->expects($this->once())
+//        $model->expects(self::once())
 //            ->method('getPrimaryKey')
 //            ->will($this->returnValue($pkValues));
 //
 //        $manager = new ModelManager();
-//        $this->assertSame($expectedValues, $manager->getNormalizedIdentifier($model));
+//        self::assertSame($expectedValues, $manager->getNormalizedIdentifier($model));
 //    }
 
     public function getNormalizedIdentifierDataProvider(): void
@@ -306,12 +306,12 @@ class ModelManagerTest extends TestCase
 
 //        $fieldDescription = $manager->getNewFieldDescriptionInstance($className, $fieldName, $options);
 //
-//        $this->assertInstanceOf('\Sonata\PropelAdminBundle\Admin\FieldDescription', $fieldDescription);
-//        $this->assertSame($fieldName, $fieldDescription->getName());
-//        $this->assertSame($expected['type'], $fieldDescription->getType());
-//        $this->assertEquals(array_merge(array('placeholder' => 'short_object_description_placeholder', 'link_parameters' => array()), $options), $fieldDescription->getOptions());
-//        $this->assertEquals($expected['association_mapping'], $fieldDescription->getAssociationMapping());
-//        $this->assertEquals($expected['field_mapping'], $fieldDescription->getFieldMapping());
+//        self::assertInstanceOf('\Sonata\PropelAdminBundle\Admin\FieldDescription', $fieldDescription);
+//        self::assertSame($fieldName, $fieldDescription->getName());
+//        self::assertSame($expected['type'], $fieldDescription->getType());
+//        self::assertEquals(array_merge(array('placeholder' => 'short_object_description_placeholder', 'link_parameters' => array()), $options), $fieldDescription->getOptions());
+//        self::assertEquals($expected['association_mapping'], $fieldDescription->getAssociationMapping());
+//        self::assertEquals($expected['field_mapping'], $fieldDescription->getFieldMapping());
 //    }
 
 //    /**
@@ -321,7 +321,7 @@ class ModelManagerTest extends TestCase
 //    {
 //        $phpName = $modelManager->translateFieldName($className, $fieldName);
 //
-//        $this->assertSame($expectedPhpName, $phpName);
+//        self::assertSame($expectedPhpName, $phpName);
 //    }
 //
 //    public function translatableFieldNamesProvider()
@@ -392,7 +392,7 @@ class ModelManagerTest extends TestCase
 //        $resellerRelation->setLocalTable($resellerTable);
 //
 //        // configure table maps mocks
-//        $relationsTableMap->expects($this->any())
+//        $relationsTableMap
 //            ->method('getRelations')
 //            ->will($this->returnValue(array($mainAuthorRelation, $authorRelation, $resellerRelation)));
 //
@@ -425,7 +425,7 @@ class ModelManagerTest extends TestCase
 //        $manager = new TestableModelManager();
 //        $manager->modelIdentifier = 'Id';
 //
-//        $this->assertSame(array(
+//        self::assertSame(array(
 //            '_sort_order'   => 'ASC',
 //            '_sort_by'      => 'Id',
 //            '_page'         => 1,
@@ -440,11 +440,11 @@ class ModelManagerTest extends TestCase
 //        $manager = new ModelManager();
 //        $datagrid = $this->getMock('\Sonata\AdminBundle\Datagrid\DatagridInterface');
 //        $datagrid
-//            ->expects($this->once())
+//            ->expects(self::once())
 //            ->method('getValues')
 //            ->will($this->returnValue($values));
 //
-//        $this->assertSame(array('filter' => $expectedSortParameters), $manager->getSortParameters($field, $datagrid));
+//        self::assertSame(array('filter' => $expectedSortParameters), $manager->getSortParameters($field, $datagrid));
 //    }
 
     public function testGetSortParametersProvider(): void
@@ -479,13 +479,13 @@ class ModelManagerTest extends TestCase
 //
 //        $datagrid = $this->getMock('\Sonata\AdminBundle\Datagrid\DatagridInterface');
 //        $datagrid
-//            ->expects($this->once())
+//            ->expects(self::once())
 //            ->method('getValues')
 //            ->will($this->returnValue(array('_sort_by' => $field)));
 //
 //        $manager = new ModelManager();
 //
-//        $this->assertSame(array(
+//        self::assertSame(array(
 //            'filter' => array(
 //                '_sort_by'  => 'slug',
 //                '_page'     => 42,
@@ -499,12 +499,12 @@ class ModelManagerTest extends TestCase
 
 //        $proxyQuery = $this->getMock('Sonata\AdminBundle\Datagrid\ProxyQueryInterface');
 //        $proxyQuery
-//            ->expects($this->once())
+//            ->expects(self::once())
 //            ->method('execute')
 //            ->will($this->returnValue('result'));
 //
 //        $manager = new ModelManager();
-//        $this->assertEquals('result', $manager->executeQuery($proxyQuery));
+//        self::assertEquals('result', $manager->executeQuery($proxyQuery));
     }
 
     public function testExecuteQueryWithModelCriteria(): void
@@ -513,12 +513,12 @@ class ModelManagerTest extends TestCase
 
 //        $query = $this->getMockBuilder('ModelCriteria')->disableOriginalConstructor()->getMock();
 //        $query
-//            ->expects($this->once())
+//            ->expects(self::once())
 //            ->method('find')
 //            ->will($this->returnValue('result'));
 //
 //        $manager = new ModelManager();
-//        $this->assertEquals('result', $manager->executeQuery($query));
+//        self::assertEquals('result', $manager->executeQuery($query));
     }
 }
 

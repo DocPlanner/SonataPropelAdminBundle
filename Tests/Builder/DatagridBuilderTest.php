@@ -35,18 +35,18 @@ class DatagridBuilderTest extends TestCase
         $fieldDescription = $this->createMock(FieldDescriptionInterface::class);
 
         $fieldDescription
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getType')
             ->willReturn('text');
 
         $fieldDescription
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getOption')
             ->with('global_search', true) // we still look the given options
             ->willReturn(true);
 
         $fieldDescription
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setOption')
             ->with('global_search', true);
 
@@ -64,7 +64,7 @@ class DatagridBuilderTest extends TestCase
         $fieldDescription = $this->createMock(FieldDescriptionInterface::class);
 
         $fieldDescription
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getType')
             ->willReturn('integer');
 
