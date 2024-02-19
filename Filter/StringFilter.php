@@ -46,7 +46,7 @@ class StringFilter extends AbstractFilter
      */
     public function getRenderSettings()
     {
-        return array('sonata_type_filter_choice', array(
+        return array(ChoiceType::class, array(
             'field_type'    => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
             'label'         => $this->getLabel(),

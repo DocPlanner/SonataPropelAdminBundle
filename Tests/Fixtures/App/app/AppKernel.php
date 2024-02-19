@@ -17,7 +17,10 @@ class AppKernel extends Kernel
 
             new Propel\Bundle\PropelBundle\PropelBundle(),
 
-            new Sonata\CoreBundle\SonataCoreBundle(),
+            new \Sonata\Twig\Bridge\Symfony\SonataTwigBundle(),
+            new \Sonata\Doctrine\Bridge\Symfony\SonataDoctrineBundle(),
+            new \Sonata\Form\Bridge\Symfony\SonataFormBundle(),
+            new \Sonata\Exporter\Bridge\Symfony\SonataExporterBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),

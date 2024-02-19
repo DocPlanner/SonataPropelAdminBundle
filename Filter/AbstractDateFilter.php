@@ -14,6 +14,8 @@ namespace Sonata\PropelAdminBundle\Filter;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\DateRangeType;
+use Sonata\AdminBundle\Form\Type\Filter\DateTimeRangeType;
+use Sonata\AdminBundle\Form\Type\Filter\DateTimeType;
 use Sonata\AdminBundle\Form\Type\Filter\DateType;
 
 /**
@@ -137,6 +139,13 @@ abstract class AbstractDateFilter extends AbstractFilter
         if ($this->range) {
             $name .= '_range';
         }
+
+        $name = [
+            'sonata_type_filter_date' => DateType::class,
+            'sonata_type_filter_datetime' => DateTimeType::class,
+            'sonata_type_filter_date_range' => DateRangeType::class,
+            'sonata_type_filter_datetime_range' => DateTimeRangeType::class,
+        ][$name];
 
         return array($name, array(
             'field_type'    => $this->getFieldType(),

@@ -59,8 +59,6 @@ class ExportTest extends WebTestCase
             foreach ($this->expected_formats as $format) {
                 $link = $crawler->selectLink($format)->link();
 
-                $this->markTestIncomplete('sonata-project/exporter is having issues with autoloading PropelCollectionSourceIterator class');
-
                 // as Sonata\AdminBundle\Export\Exporter writes directly to php://output
                 // the exported data is displayed in the console
                 ob_start();

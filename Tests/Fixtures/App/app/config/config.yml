@@ -28,7 +28,6 @@ propel:
                     charset: utf8
 
     paths:
-#        phpDir:    "%kernel.root_dir%/../src/Sonata/TestBundle/Model"
         sqlDir: '%kernel.cache_dir%/propel/sql/'
         schemaDir: '%kernel.root_dir%/../src/Sonata/TestBundle/Resources/config/'
         loaderScriptDir: '%kernel.cache_dir%/propel/generated-conf/'

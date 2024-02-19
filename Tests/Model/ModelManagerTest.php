@@ -190,7 +190,7 @@ class ModelManagerTest extends TestCase
 //
 //        // and finally test it!
 //        $collectionIterator = $manager->getDataSourceIterator($datagrid, $fields, $firstResult, $maxResults);
-//        self::assertInstanceOf('\Exporter\Source\PropelCollectionSourceIterator', $collectionIterator);
+//        self::assertInstanceOf('\Sonata\Exporter\Source\PropelCollectionSourceIterator', $collectionIterator);
 //        self::assertSame(array(
 //            array('title' => 'Super!'),
 //            array('title' => 'Foo'),

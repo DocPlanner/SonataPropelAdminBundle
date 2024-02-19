@@ -113,7 +113,7 @@ class ListBuilderTest extends TestCase
             array(
                 $field,
                 array('sortable' => true),
-                array('sortable' => true, 'sort_field_mapping' => null, 'sort_parent_association_mappings' => array()),
+                array('sortable' => true, 'sort_field_mapping' => array(), 'sort_parent_association_mappings' => array()),
             ),
             array(
                 $field,

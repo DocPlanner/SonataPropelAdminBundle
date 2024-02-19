@@ -125,6 +125,7 @@ class FieldDescriptionTest extends TestCase
             ->willReturn('myMethodValue');
 
         $field = new FieldDescription();
+        $field->setName('irrelevant');
         $field->setOption('code', 'myMethod');
 
         self::assertEquals('myMethodValue', $field->getValue($mockedObject));
@@ -140,6 +141,7 @@ class FieldDescriptionTest extends TestCase
             ->willReturn('myMethodValue');
 
         $field = new FieldDescription();
+        $field->setName('irrelevant');
 
         self::assertEquals('myMethodValue', $field->getValue($mockedObject));
     }

@@ -11,6 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Tests\Filter;
 
+use Sonata\AdminBundle\Form\Type\Filter\DateTimeType;
 use Sonata\PropelAdminBundle\Filter\DateTimeFilter;
 
 /**
@@ -28,6 +29,6 @@ class DateTimeFilterTest extends AbstractDateFilterTestCase
     public function testRenderSettingsHasRightName()
     {
         $settings = $this->filter->getRenderSettings();
-        self::assertEquals('sonata_type_filter_datetime', $settings[0]);
+        self::assertEquals(DateTimeType::class, $settings[0]);
     }
 }

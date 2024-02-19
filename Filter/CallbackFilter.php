@@ -14,6 +14,7 @@ namespace Sonata\PropelAdminBundle\Filter;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
+use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
 
 class CallbackFilter extends AbstractFilter
 {
@@ -55,7 +56,7 @@ class CallbackFilter extends AbstractFilter
 	 */
 	public function getRenderSettings()
 	{
-		return array('sonata_type_filter_default', array(
+		return array(DefaultType::class, array(
 			'field_type'    => $this->getFieldType(),
 			'field_options' => $this->getFieldOptions(),
 			'operator_type' => $this->getOption('operator_type'),

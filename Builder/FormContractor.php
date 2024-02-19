@@ -15,6 +15,10 @@ use Propel\Runtime\Map\RelationMap;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Builder\FormContractorInterface;
+use Sonata\AdminBundle\Form\Type\AdminType;
+use Sonata\AdminBundle\Form\Type\CollectionType;
+use Sonata\AdminBundle\Form\Type\ModelListType;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -78,26 +82,26 @@ class FormContractor implements FormContractorInterface
             'sonata_field_description' => $fieldDescription,
         );
 
-        if ($type == 'sonata_type_model' || $type == 'sonata_type_model_list') {
+        if ($type ==  ModelType::class || $type == ModelListType::class) {
             if ($fieldDescription->getOption('edit') == 'list') {
                 throw new \LogicException('The ``sonata_type_model`` type does not accept an ``edit`` option anymore, please review the UPGRADE-2.1.md file from the SonataAdminBundle');
             }
 
             $options['class']         = $fieldDescription->getTargetEntity();
             $options['model_manager'] = $fieldDescription->getAdmin()->getModelManager();
-        } elseif ($type == 'sonata_type_admin') {
+        } elseif ($type == AdminType::class) {
             if (!$fieldDescription->getAssociationAdmin()) {
                 throw new \RuntimeException(sprintf('The current field `%s` is not linked to an admin. Please create one for the target entity : `%s`', $fieldDescription->getName(), $fieldDescription->getTargetEntity()));
             }
 
             $options['data_class'] = $fieldDescription->getAssociationAdmin()->getClass();
             $fieldDescription->setOption('edit', $fieldDescription->getOption('edit', 'admin'));
-        } elseif ($type == 'sonata_type_collection') {
+        } elseif ($type == CollectionType::class) {
             if (!$fieldDescription->getAssociationAdmin()) {
                 throw new \RuntimeException(sprintf('The current field `%s` is not linked to an admin. Please create one for the target entity : `%s`', $fieldDescription->getName(), $fieldDescription->getTargetEntity()));
             }
 
-            $options['type']         = 'sonata_type_admin';
+            $options['type']         = AdminType::class;
             $options['modifiable']   = true;
             $options['type_options'] = array(
                 'sonata_field_description' => $fieldDescription,

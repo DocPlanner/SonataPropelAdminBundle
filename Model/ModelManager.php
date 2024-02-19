@@ -11,7 +11,7 @@
 
 namespace Sonata\PropelAdminBundle\Model;
 
-use Exporter\Source\PropelCollectionSourceIterator;
+use Sonata\PropelAdminBundle\Exporter\Source\PropelCollectionSourceIterator;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
 use Propel\Runtime\Collection\ObjectCollection;

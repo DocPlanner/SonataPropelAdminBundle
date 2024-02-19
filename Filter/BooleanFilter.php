@@ -13,7 +13,8 @@ namespace Sonata\PropelAdminBundle\Filter;
 
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
-use Sonata\CoreBundle\Form\Type\BooleanType;
+use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
+use Sonata\Form\Type\BooleanType;
 
 /**
  * @author Kévin Gomez <contact@kevingomez.fr>
@@ -44,7 +45,7 @@ class BooleanFilter extends AbstractFilter
      */
     public function getRenderSettings()
     {
-        return array('sonata_type_filter_default', array(
+        return array(DefaultType::class, array(
             'field_type'        => $this->getFieldType(),
             'field_options'     => $this->getFieldOptions(),
             'label'             => $this->getLabel(),
