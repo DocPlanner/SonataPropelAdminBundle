@@ -17,6 +17,7 @@ use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\Form\Type\EqualType;
 
 /**
  * @author Toni Uebernickel <tuebernickel@gmail.com>
@@ -66,7 +67,7 @@ class ModelFilter extends AbstractFilter
     public function getRenderSettings()
     {
         return array(DefaultType::class, array(
-            'operator_type' => 'sonata_type_equal',
+            'operator_type' => EqualType::class,
             'field_type'    => ModelType::class,
             'field_options' => $this->getFieldOptions(),
             'label'         => $this->getLabel(),

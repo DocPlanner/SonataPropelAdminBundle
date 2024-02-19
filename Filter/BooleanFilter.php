@@ -57,7 +57,7 @@ class BooleanFilter extends AbstractFilter
      */
     public function getFieldType()
     {
-        return $this->getOption('field_type', 'sonata_type_boolean');
+        return $this->getOption('field_type', BooleanType::class);
     }
 
     protected function getCriteriaMap()
