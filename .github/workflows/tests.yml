@@ -23,7 +23,7 @@ jobs:
           - php: 8.3
           - php: 8.4
 
-    name: 'PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}'
+    name: 'PHP ${{ matrix.php }}'
     runs-on: ubuntu-latest
 
     steps:
@@ -36,9 +36,6 @@ jobs:
 
       - name: Validate composer.json and composer.lock
         run: composer validate
-
-      - name: Set platform to PHP 7.4
-        run: composer config platform.php 7.4
 
       - name: Install dependencies
         run: composer install --ansi --prefer-dist --no-interaction --no-scripts
