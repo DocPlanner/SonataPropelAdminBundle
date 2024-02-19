@@ -40,24 +40,6 @@ jobs:
       - name: Set platform to PHP 7.4
         run: composer config platform.php 7.4
 
-      - name: Lock packages according to dependency matrix
-        run: |
-          composer require --ansi --no-scripts --update-with-all-dependencies --no-install \
-            'symfony/form: ${{ matrix.symfony }}' \
-            'symfony/framework-bundle: ${{ matrix.symfony }}'
-          
-          rm composer.lock
-          
-          composer require --ansi --no-scripts --update-with-all-dependencies --no-install --dev \
-            'symfony/browser-kit: ${{ matrix.symfony }}' \
-            'symfony/console: ${{ matrix.symfony }}' \
-            'symfony/css-selector: ${{ matrix.symfony }}' \
-            'symfony/phpunit-bridge: ${{ matrix.symfony }}' \
-            'symfony/twig-bundle: ${{ matrix.symfony }}' \
-            'symfony/var-dumper: ${{ matrix.symfony }}'
-          
-          rm composer.lock
-
       - name: Install dependencies
         run: composer install --ansi --prefer-dist --no-interaction --no-scripts
 
