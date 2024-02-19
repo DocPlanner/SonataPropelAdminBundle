@@ -16,6 +16,7 @@ use Propel\Runtime\Collection\ObjectCollection;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
+use Sonata\AdminBundle\Form\Type\ModelType;
 
 /**
  * @author Toni Uebernickel <tuebernickel@gmail.com>
@@ -66,7 +67,7 @@ class ModelFilter extends AbstractFilter
     {
         return array(DefaultType::class, array(
             'operator_type' => 'sonata_type_equal',
-            'field_type'    => 'model',
+            'field_type'    => ModelType::class,
             'field_options' => $this->getFieldOptions(),
             'label'         => $this->getLabel(),
         ));
